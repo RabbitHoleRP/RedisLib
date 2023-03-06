@@ -16,13 +16,13 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>redislib</id>
-            <name>RedisLib</name>
+            <id>permissions</id>
+            <name>Permissions</name>
             <url>https://repo.rabbithole.com.br/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>redislib</id>
-            <name>RedisLib</name>
+            <id>permissions</id>
+            <name>Permissions</name>
             <url>https://repo.rabbithole.com.br/releases</url>
         </repository>
     </distributionManagement>
