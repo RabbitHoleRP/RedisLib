@@ -86,7 +86,7 @@ public enum RedisCommands {
         @Override
         public Optional<Boolean> query(String... args) {
             try (Jedis jedis = RedisLib.getJedis().getResource()) {
-                jedis.hdel(args[0], args[1], args[2]);
+                jedis.hdel(args[0], args[1]);
                 return Optional.of(true);
             } catch (Exception exception) {
                 RedisLib.getWarn().sendWarn(Warn.DELETE_CACHE_ERROR);

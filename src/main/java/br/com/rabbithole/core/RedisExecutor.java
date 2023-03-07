@@ -20,10 +20,10 @@ public class RedisExecutor {
             case EXISTS, GET -> {
                 return command.query(args[0]);
             }
-            case SET, DEL, EXPIRE, HASH_EXISTS, HASH_GET -> {
+            case SET, DEL, EXPIRE, HASH_EXISTS, HASH_GET, HASH_DEL -> {
                 return command.query(args[0], args[1]);
             }
-            case HASH_SET, HASH_DEL -> {
+            case HASH_SET -> {
                 return command.query(args[0], args[1], args[2]);
             }
         }
