@@ -24,7 +24,7 @@ public class RedisExecutor {
                 return command.query(args[0], args[1]);
             }
             case HASH_SET, HASH_DEL -> {
-                return command.query(args[0], args[1], args[0]);
+                return command.query(args[0], args[1], args[2]);
             }
         }
         return Optional.empty();
