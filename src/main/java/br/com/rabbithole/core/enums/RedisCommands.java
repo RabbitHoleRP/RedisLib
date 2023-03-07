@@ -1,6 +1,5 @@
 package br.com.rabbithole.core.enums;
 
-import br.com.rabbithole.RedisConfiguration;
 import br.com.rabbithole.RedisLib;
 import redis.clients.jedis.Jedis;
 
@@ -12,7 +11,7 @@ public enum RedisCommands {
         public Optional<Boolean> query(String... args) {
             try (Jedis jedis = RedisLib.getJedis().getResource()) {
                 jedis.set(args[0], args[1]);
-                return Optional.of(true); //return true;
+                return Optional.of(true);
             } catch (Exception exception) {
                 RedisLib.getWarn().sendWarn(Warn.INSERT_CACHE_ERROR);
                 exception.printStackTrace();

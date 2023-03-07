@@ -19,7 +19,7 @@ public class RedisLib {
         return warn.getWarn();
     }
 
-    public static RedisExecutor getRedis() {
+    public RedisExecutor getRedis() {
         return redis;
     }
 
