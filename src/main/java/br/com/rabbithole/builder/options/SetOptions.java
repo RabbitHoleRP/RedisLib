@@ -50,26 +50,25 @@ public class SetOptions {
         return this;
     }
 
+    @Override
     public String toString() {
-        String result = "";
-
+        StringBuilder result = new StringBuilder();
         if(nx)
-            result += "NX ";
+            result.append("NX");
         if(xx)
-            result += " XX ";
+            result.append("XX");
         if(get)
-            result += " GET ";
+            result.append("GET");
         if(ex != 0D)
-            result += " EX " + ex;
+            result.append(String.format("EX %s", ex));
         if(px != 0D)
-            result += " PX " + px;
+            result.append(String.format("PX %s", px));
         if(exat != 0D)
-            result += " EXAT " + exat;
+            result.append(String.format("EXAT %s", exat));
         if(pxat != 0D)
-            result += " PXAT " + pxat;
+            result.append(String.format("PXAT %s", pxat));
         if(keepttl)
-            result += " KEEPTTL";
-
-        return result;
+            result.append("KEEPTTL");
+        return result.toString();
     }
 }
