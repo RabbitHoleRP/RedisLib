@@ -1,7 +1,7 @@
 
-# RedLibs
+# RedisLib
 
-**RedLibs** é um cliente de [redis](https://redis.io/) leve e simples de usar — porem poderoso — foi criado apos o uso de outros clientes de redis que julgamos muito complexos, pesados e  com *overengineering*, 💋.
+**RedisLib** é um cliente de [redis](https://redis.io/) leve e simples de usar — porém poderoso — foi criado após o uso de outros clientes de **Redis** que julgamos muito complexos, pesados e  com *overengineering*, 💋.
 
 
 ## Referência
@@ -28,7 +28,7 @@ function App() {
 
 ## Instalação
 
-1. Adicione o repositorio ao seu projeto.
+1. Adicione o repositório ao seu projeto.
 
 **Maven**:
 ```xml
@@ -52,7 +52,7 @@ function App() {
     url = uri("https://repo.rabbithole.com.br/snapshots")
 }
 ```
-2. Adicione a dependencia.
+2. Adicione a dependência.
 
 **Maven**:
 ```xml
