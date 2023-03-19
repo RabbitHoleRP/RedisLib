@@ -5,6 +5,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
+@Deprecated
 public enum RedisCommands {
     SET {
         @Override
