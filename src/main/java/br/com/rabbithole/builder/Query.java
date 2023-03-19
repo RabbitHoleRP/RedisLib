@@ -1,5 +1,6 @@
 package br.com.rabbithole.builder;
 
+import br.com.rabbithole.builder.options.ExpireOptions;
 import br.com.rabbithole.builder.options.SetOptions;
 
 import java.util.Arrays;
@@ -89,6 +90,19 @@ public class Query {
                 }
             }
             this.key = b.toString();
+            return this;
+        }
+
+        public Builder expire(String key, Double seconds) {
+            this.key = key;
+            this.value = String.valueOf(seconds);
+            return this;
+        }
+
+        public Builder expire(String key, Double seconds, ExpireOptions options) {
+            this.key = key;
+            this.value = value;
+            this.options = options.toString();
             return this;
         }
 
