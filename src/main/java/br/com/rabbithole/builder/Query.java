@@ -101,7 +101,7 @@ public class Query {
 
         public Builder expire(String key, Double seconds, ExpireOptions options) {
             this.key = key;
-            this.value = value;
+            this.value = String.valueOf(seconds);
             this.options = options.toString();
             return this;
         }
