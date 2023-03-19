@@ -71,6 +71,27 @@ public class Query {
             return this;
         }
 
+        public Builder exists(String ...key) {
+            this.key = "";
+            if (key == null)
+                return this;
+
+            int iMax = key.length - 1;
+            if (iMax == -1)
+                return this;
+
+            StringBuilder b = new StringBuilder();
+            for (int i = 0; i <= iMax ; i++) {
+                if(i != iMax) {
+                    b.append(String.valueOf(key[i] + " "));
+                } else {
+                    b.append(String.valueOf(key[i]));
+                }
+            }
+            this.key = b.toString();
+            return this;
+        }
+
         public Query build() {
             return new Query(key, value, options);
         }
