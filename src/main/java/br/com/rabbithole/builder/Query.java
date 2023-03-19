@@ -2,6 +2,8 @@ package br.com.rabbithole.builder;
 
 import br.com.rabbithole.builder.options.SetOptions;
 
+import java.util.Arrays;
+
 public class Query {
     private final String key;
     private final String value;
@@ -45,6 +47,27 @@ public class Query {
             this.key = key;
             this.value = value;
             this.options = options.toString();
+            return this;
+        }
+
+        public Builder del(String ...key) {
+            this.key = "";
+            if (key == null)
+                return this;
+
+            int iMax = key.length - 1;
+            if (iMax == -1)
+                return this;
+
+            StringBuilder b = new StringBuilder();
+            for (int i = 0; i <= iMax ; i++) {
+                if(i != iMax) {
+                    b.append(String.valueOf(key[i] + " "));
+                } else {
+                    b.append(String.valueOf(key[i]));
+                }
+            }
+            this.key = b.toString();
             return this;
         }
 
