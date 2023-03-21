@@ -19,8 +19,8 @@ public class RedisExecutor {
         return result;
     }
 
-    public Optional<?> redisQuery(Commands command, String... args) {
-        Optional<?> result = redisQueryExecutor(command, args);
+    public <T> Optional<T> redisQuery(Commands command, String... args) {
+        Optional<T> result = converter(redisQueryExecutor(command, args));
         if (result.isEmpty()) {
             RedisLib.getWarn().sendWarn(Warn.CHECK_CACHE_ERROR);
         }
@@ -74,5 +74,9 @@ public class RedisExecutor {
             }
         }
         return Optional.empty();
+    }
+
+    private <T> Optional<T> converter(Optional<?> result) {
+        return (Optional<T>) result;
     }
 }
