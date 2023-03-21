@@ -2,6 +2,7 @@ package br.com.rabbithole.core;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.annotations.Beta;
+import br.com.rabbithole.core.annotations.Since;
 import br.com.rabbithole.core.commands.GenericCommands;
 import br.com.rabbithole.core.commands.HashCommands;
 import br.com.rabbithole.core.enums.Commands;
@@ -21,9 +22,10 @@ public class RedisExecutor {
     }
 
     @Beta
+    @Since(version = "1.1.2")
     public <T> Optional<T> redisQuery(Commands command, String... args) {
         Optional<T> result = converter(redisQueryExecutor(command, args));
-        if (result.isEmpty()) {
+        if (result.isEmpty()) { //TODO: Refactoring Result Error
             RedisLib.getWarn().sendWarn(Warn.CHECK_CACHE_ERROR);
         }
         return result;
@@ -46,39 +48,42 @@ public class RedisExecutor {
     }
 
     @Beta
+    @Since(version = "1.1.2")
     private Optional<?> redisQueryExecutor(Commands command, String... args) {
         switch (command) {
             case SET -> {
-                return GenericCommands.getInstance().setQuery(args);
+                return Optional.of(GenericCommands.getInstance().setQuery(args));
             }
             case GET -> {
-                return GenericCommands.getInstance().getQuery(args);
+                return Optional.of(GenericCommands.getInstance().getQuery(args));
             }
             case DEL -> {
-                return GenericCommands.getInstance().delQuery(args);
+                return Optional.of(GenericCommands.getInstance().delQuery(args));
             }
             case EXISTS -> {
-                return GenericCommands.getInstance().existsQuery(args);
+                return Optional.of(GenericCommands.getInstance().existsQuery(args));
             }
             case EXPIRE -> {
-                return GenericCommands.getInstance().expireQuery(args);
+                return Optional.of(GenericCommands.getInstance().expireQuery(args));
             }
             case HASH_SET -> {
-                return HashCommands.getInstance().hashSetQuery(args);
+                return Optional.of(HashCommands.getInstance().hashSetQuery(args));
             }
             case HASH_GET -> {
-                return HashCommands.getInstance().hashGetQuery(args);
+                return Optional.of(HashCommands.getInstance().hashGetQuery(args));
             }
             case HASH_DEL -> {
-                return HashCommands.getInstance().hashDelQuery(args);
+                return Optional.of(HashCommands.getInstance().hashDelQuery(args));
             }
             case HASH_EXISTS -> {
-                return HashCommands.getInstance().hashExistsQuery(args);
+                return Optional.of(HashCommands.getInstance().hashExistsQuery(args));
             }
         }
         return Optional.empty();
     }
 
+    @Beta
+    @Since(version = "1.1.2")
     private <T> Optional<T> converter(Optional<?> result) {
         return (Optional<T>) result;
     }
