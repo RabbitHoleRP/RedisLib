@@ -1,6 +1,7 @@
 package br.com.rabbithole.core;
 
 import br.com.rabbithole.RedisLib;
+import br.com.rabbithole.core.annotations.Beta;
 import br.com.rabbithole.core.commands.GenericCommands;
 import br.com.rabbithole.core.commands.HashCommands;
 import br.com.rabbithole.core.enums.Commands;
@@ -19,8 +20,9 @@ public class RedisExecutor {
         return result;
     }
 
-    public Optional<?> redisQuery(Commands command, String... args) {
-        Optional<?> result = redisQueryExecutor(command, args);
+    @Beta
+    public <T> Optional<T> redisQuery(Commands command, String... args) {
+        Optional<T> result = converter(redisQueryExecutor(command, args));
         if (result.isEmpty()) {
             RedisLib.getWarn().sendWarn(Warn.CHECK_CACHE_ERROR);
         }
@@ -43,6 +45,7 @@ public class RedisExecutor {
         return Optional.empty();
     }
 
+    @Beta
     private Optional<?> redisQueryExecutor(Commands command, String... args) {
         switch (command) {
             case SET -> {
@@ -74,5 +77,9 @@ public class RedisExecutor {
             }
         }
         return Optional.empty();
+    }
+
+    private <T> Optional<T> converter(Optional<?> result) {
+        return (Optional<T>) result;
     }
 }
