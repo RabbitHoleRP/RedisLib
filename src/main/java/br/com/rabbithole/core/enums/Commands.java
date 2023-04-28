@@ -1,5 +1,26 @@
 package br.com.rabbithole.core.enums;
 
-public enum Commands {
-    SET, DEL, EXISTS, GET, EXPIRE, HASH_SET, HASH_GET, HASH_DEL, HASH_EXISTS;
+import br.com.rabbithole.core.builder.QueryInterface;
+
+import java.util.Optional;
+
+/**
+ * @author Felipe Ros
+ * @Usage Lista de Comandos Redis disponíveis.
+ * @since 1.0
+ */
+public enum Commands implements QueryInterface {
+    GET {
+        @Override
+        public Optional<String> get(String key) {
+            return Optional.empty();
+        }
+    },
+
+    SET {
+        @Override
+        public Optional<String> set(String key, String value) {
+            return Optional.empty();
+        }
+    }
 }

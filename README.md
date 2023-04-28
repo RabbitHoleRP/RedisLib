@@ -13,11 +13,31 @@
 
 ## Uso/Exemplos
 
-```javascript
-import Component from 'my-project'
+```java
+import br.com.rabbithole.RedisLib;
+import br.com.rabbithole.configurations.RedisConfig;
+import br.com.rabbithole.core.builder.Query;
+import br.com.rabbithole.core.enums.Commands;
 
-function App() {
-  return <Component />
+public class Main {
+    public static void main(String[] args) {
+        //Inicia a Conexão com o Redis passando os parâmetros de conexão 
+        //RedisConfig(IP, Porta, Usuário, Senha, Número de Conexões)
+        RedisLib.init(new RedisConfig("localhost", 6379, "user", "password", 100));
+        
+        //Uma Get Query simples.
+        Query query = new Query.QueryBuilder()
+                .setCommand(Commands.GET)
+                .setKey("Foo")
+                .build();
+        
+        //Uma Set Query simples.
+        Query query = new Query.QueryBuilder()
+                .setCommand(Commands.SET)
+                .setKey("Foo")
+                .setValue("Bar")
+                .build();
+    }
 }
 ```
 
@@ -41,14 +61,14 @@ function App() {
 
 **Gradle(Groovy)**:
 ```groovy
-  maven {
+maven {
     url "https://repo.rabbithole.com.br/snapshots"
 }
 ```
 
 **Gradle(Kotlin)**:
 ```kotlin
-  maven {
+maven {
     url = uri("https://repo.rabbithole.com.br/snapshots")
 }
 ```
