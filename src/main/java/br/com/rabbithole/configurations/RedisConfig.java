@@ -6,18 +6,28 @@ package br.com.rabbithole.configurations;
  * @since 1.0
  */
 public class RedisConfig {
+    private String prefix;
     private String host;
     private int port;
     private String user;
     private String password;
     private int connections;
 
-    public RedisConfig(String host, int port, String user, String password, int connections) {
+    public RedisConfig(String prefix, String host, int port, String user, String password, int connections) {
+        this.prefix = prefix;
         this.host = host;
         this.port = port;
         this.user = user;
         this.password = password;
         this.connections = connections;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
     public String getHost() {
