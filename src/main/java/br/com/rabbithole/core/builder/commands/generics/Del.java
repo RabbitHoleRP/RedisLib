@@ -20,6 +20,7 @@ public class Del implements Command, Read {
     private Del(Builder builder) {
         this.key = builder.key;
     }
+
     private Query<Del> query() {
         return new Query<>(this);
     }

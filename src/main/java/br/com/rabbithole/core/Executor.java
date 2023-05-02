@@ -13,7 +13,7 @@ import java.util.Optional;
  * @Usage Executor das consultas Redis criadas.
  * @since 2.0
  */
-public class Executor<T> {
+public class Executor {
     /*
     public <T extends Command> Optional<String> execute(Query<T> query) {
         return Optional.of("");

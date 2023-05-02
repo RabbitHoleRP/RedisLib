@@ -1,7 +1,7 @@
 
 # RedisLib
 
-**RedisLib** é um cliente de [redis](https://redis.io/) leve e simples de usar — porém poderoso — foi criado após o uso de outros clientes de **Redis** que julgamos muito complexos, pesados e  com *overengineering*, 💋.
+**RedisLib** é uma biblioteca para [redis](https://redis.io/) leve e simples de usar — porém muito poderoso — foi criada para facilitar no desenvolvimento de aplicações que utilizam o **Redis**.
 
 
 ## Referência
@@ -21,6 +21,8 @@ import br.com.rabbithole.core.builder.commands.generics.Get;
 import br.com.rabbithole.core.builder.commands.generics.Set;
 import br.com.rabbithole.core.builder.options.SetOptions;
 
+import java.util.Optional;
+
 public class Main {
     public static void main(String[] args) {
         //Inicia a Conexão com o Redis passando os parâmetros de conexão 
@@ -31,6 +33,14 @@ public class Main {
         Query<Get> getQuery = new Get.Builder()
                 .setKey("Foo")
                 .build();
+        
+        //Execução da Query após a construção.
+        Optional<String> resultOfGetQuery = getQuery.getCommand().execute();
+
+        //Uma Get Query com execução na construção.
+        Optional<String> getQueryWithExecute = new Get.Builder()
+                .setKey("Foo")
+                .execute();
 
         //Uma Set Query simples.
         Query<Set> setQuery = new Set.Builder()
@@ -45,7 +55,7 @@ public class Main {
                 .setOptions(new SetOptions.Builder()
                         .setExpire(100)
                         .setIfNotExists()
-                        .setIfNotExists()
+                        .setIfExists()
                         .setGet()
                 ).build();
     }

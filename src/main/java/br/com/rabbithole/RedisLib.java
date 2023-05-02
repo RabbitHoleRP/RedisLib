@@ -40,8 +40,6 @@ public class RedisLib {
     public static void main(String[] args) {
         RedisLib.init(new RedisConfig("Test", "", 6379, "default", "1234", 100));
 
-
-
         Query<Get> getQuery = new Get.Builder()
                 .setKey("Foo")
                 .build();
@@ -49,6 +47,23 @@ public class RedisLib {
         Query<Del> delQuery = new Del.Builder()
                 .setKey("Foo")
                 .build();
+
+        Optional<String> getQueryWithReturn = new Get.Builder()
+                .setKey("Foo")
+                .execute();
+
+        if (getQueryWithReturn.isPresent()) {
+            System.out.println("Resultado A: " + getQueryWithReturn.get());
+        } else {
+            System.out.println("Sem resultado!");
+        }
+
+        Optional<String> executeGet = getQuery.getCommand().execute();
+        if (executeGet.isPresent()) {
+            System.out.println("Resultado B: " + executeGet.get());
+        } else {
+            System.out.println("Sem resultado!");
+        }
 
         Query<Set> setQueryNotOptions = new Set.Builder()
                 .setKey("Foo")
@@ -63,7 +78,6 @@ public class RedisLib {
                         .build()
                 ).build();
 
-        Optional<Object> result = Executor.execute(getQuery);
 
         String commandName = setQuery.getCommand().commandName();
         String key = setQuery.getCommand().getKey();
