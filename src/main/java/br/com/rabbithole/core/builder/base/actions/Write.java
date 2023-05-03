@@ -5,7 +5,7 @@ package br.com.rabbithole.core.builder.base.actions;
  * @Usage Representação da Ação Read no banco de dados Redis
  * @since 2.0
  */
-public interface Write {
+public interface Write<Q> {
     String getKey();
-    String getValue();
+    Q getValue();
 }

@@ -9,12 +9,12 @@ import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class Get implements Command, Read, Execute<String> {
+public class Exists implements Command, Read, Execute<Boolean> {
     private final String key;
 
     @Override
     public String commandName() {
-        return "get";
+        return "exists";
     }
 
     @Override
@@ -23,23 +23,21 @@ public class Get implements Command, Read, Execute<String> {
     }
 
     @Override
-    public Optional<String> execute() { //TODO: IMPLEMENTAR HANDLER DE VALIDAÇÃO!
+    public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
-            return Optional.of(jedis.get(getKey()));
-        } catch (Exception exception) {
-            return Optional.empty();
+            return Optional.of(jedis.exists(getKey()));
         }
     }
 
-    private Get(Builder builder) {
+    private Exists(Builder builder) {
         this.key = builder.key;
     }
 
-    private Query<Get> query() {
+    private Query<Exists> query() {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<String> {
+    public static class Builder implements Execute<Boolean> {
         private String key;
 
         public Builder setKey(String key) {
@@ -47,12 +45,12 @@ public class Get implements Command, Read, Execute<String> {
             return this;
         }
 
-        public Query<Get> build() {
-            return new Get(this).query();
+        public Query<Exists> build() {
+            return new Exists(this).query();
         }
 
         @Override
-        public Optional<String> execute() {
+        public Optional<Boolean> execute() {
             return build().getCommand().execute();
         }
     }

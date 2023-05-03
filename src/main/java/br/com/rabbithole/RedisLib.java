@@ -38,7 +38,20 @@ public class RedisLib {
     }
 
     public static void main(String[] args) {
-        RedisLib.init(new RedisConfig("Test", "", 6379, "default", "1234", 100));
+        RedisLib.init(new RedisConfig("Test", "localhost", 6379, "default", "1234", 100));
+
+        Query<Set> setQuery = new Set.Builder()
+                .setKey("Foo")
+                .setValue("Bar")
+                .build();
+
+        Optional<Boolean> executeSet = setQuery.getCommand().execute();
+
+        if (executeSet.isPresent()) {
+            System.out.println("Resultado Set: " + executeSet.get());
+        } else {
+            System.out.println("Sem Resultado Set!");
+        }
 
         Query<Get> getQuery = new Get.Builder()
                 .setKey("Foo")
@@ -62,7 +75,7 @@ public class RedisLib {
         if (executeGet.isPresent()) {
             System.out.println("Resultado B: " + executeGet.get());
         } else {
-            System.out.println("Sem resultado!");
+            System.out.println("Sem resultado Get!");
         }
 
         Query<Set> setQueryNotOptions = new Set.Builder()
@@ -70,6 +83,7 @@ public class RedisLib {
                 .setValue("Bar")
                 .build();
 
+        /*
         Query<Set> setQuery = new Set.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
@@ -77,6 +91,7 @@ public class RedisLib {
                         .setExpire(100)
                         .build()
                 ).build();
+         */
 
 
         String commandName = setQuery.getCommand().commandName();
