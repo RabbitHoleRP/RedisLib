@@ -32,6 +32,7 @@ public class RedisLib {
         System.out.println("Iniciado com Sucesso!");
     }
 
+    //TODO: APENAS PARA TESTE!
     public static void main(String[] args) {
         RedisLib.init(new RedisConfig("Test", "localhost", 6379, "default", "1234", 100));
 
