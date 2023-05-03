@@ -2,16 +2,16 @@ package br.com.rabbithole;
 
 import br.com.rabbithole.configurations.RedisConfig;
 import br.com.rabbithole.configurations.RedisConfiguration;
-import br.com.rabbithole.core.Executor;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.commands.generics.Del;
 import br.com.rabbithole.core.builder.commands.generics.Get;
 import br.com.rabbithole.core.builder.commands.generics.Set;
 import br.com.rabbithole.core.builder.options.SetOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.JedisPool;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * @author Felipe Ros
@@ -20,16 +20,11 @@ import java.util.logging.Logger;
  */
 public class RedisLib {
     private static RedisConfiguration redisConfiguration;
-    private final Executor executor;
     private static Logger logger;
 
     public RedisLib(RedisConfig config) {
-        executor = new Executor();
         redisConfiguration = new RedisConfiguration(config);
-    }
-
-    public Executor getExecutor() { //TODO: REMOVER APÓS DESENVOLVER EXECUTOR!
-        return executor;
+        logger = LoggerFactory.getLogger(config.getPrefix() + " - ");
     }
 
     public static void init(RedisConfig redisConfig) {
@@ -112,9 +107,8 @@ public class RedisLib {
     public static JedisPool getJedis() {
         return redisConfiguration.getJedis();
     }
-    /* TODO: ALTERAR PARA LOGGER FACTORY DO
+
     public static Logger getLogger() {
-        return
+        return logger;
     }
-     */
 }
