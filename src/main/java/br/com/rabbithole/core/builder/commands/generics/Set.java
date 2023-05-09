@@ -8,11 +8,17 @@ import br.com.rabbithole.core.builder.base.options.CommandOptions;
 import br.com.rabbithole.core.builder.base.actions.Write;
 import br.com.rabbithole.core.builder.options.SetOptions;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.commands.ProtocolCommand;
 import redis.clients.jedis.params.SetParams;
 
 import java.util.Optional;
 
+/**
+ * @author Felipe Ros
+ * @Usage Representa o Comando Set do banco de dados Redis.
+ * @since 2.0
+ * @version 1.0
+ *
+ */
 public class Set implements Command, Write<String>, CommandOptions<SetOptions>, Execute {
     private final String key;
     private final String value;
