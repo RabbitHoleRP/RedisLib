@@ -8,5 +8,10 @@ package br.com.rabbithole.core.builder.base.options;
  * @param <T> Genérico - Valor genérico que estende da interface {@link Options}
  */
 public interface CommandOptions<T extends Options> {
+
+    /**
+     * @Usage Utilizado para pegar as Opções.
+     * @return Genérico - Retorna a Opção.
+     */
     T getOptions();
 }

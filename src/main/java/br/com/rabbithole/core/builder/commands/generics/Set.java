@@ -8,10 +8,12 @@ import br.com.rabbithole.core.builder.base.options.CommandOptions;
 import br.com.rabbithole.core.builder.base.actions.Write;
 import br.com.rabbithole.core.builder.options.SetOptions;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.commands.ProtocolCommand;
+import redis.clients.jedis.params.SetParams;
 
 import java.util.Optional;
 
-public class Set implements Command, Write<String>, CommandOptions<SetOptions>, Execute<Boolean> {
+public class Set implements Command, Write<String>, CommandOptions<SetOptions>, Execute<String> {
     private final String key;
     private final String value;
     private final SetOptions options;
@@ -37,13 +39,25 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
     }
 
     @Override
-    public Optional<Boolean> execute() {
+    public Optional<String> execute() { //TODO: EM TESTES! SERÁ ALTERADO PARA PROTOCOL COMMAND!
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
-            jedis.set(getKey(), getValue());
-            return Optional.of(true);
+            int expireTime = getOptions().getExpire();
+            if (options.isIfNotExists()) {
+                if (expireTime != 0 ) jedis.set(getKey(), getValue(), SetParams.setParams().ex(expireTime).nx());
+                jedis.setnx(getKey(), getValue());
+            } else if (options.isIfExists()) {
+                if (expireTime != 0) jedis.set(getKey(), getValue(), SetParams.setParams().ex(expireTime).xx());
+                jedis.set(getKey(), getValue(), SetParams.setParams().xx());
+            } else if (options.isGet()) {
+                if (expireTime != 0) return Optional.of(jedis.setGet(getKey(), getValue(), SetParams.setParams().ex(expireTime)));
+            } else {
+                if (expireTime != 0) jedis.setex(getKey(), expireTime, getValue());
+                jedis.set(getKey(), getValue());
+            }
+            return Optional.of("1");
         } catch (Exception exception) {
             exception.printStackTrace();
-            return Optional.of(false);
+            return Optional.of("0");
         }
     }
 
@@ -57,7 +71,7 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<Boolean> {
+    public static class Builder implements Execute<String> {
         private String key;
         private String value;
         private SetOptions options;
@@ -82,7 +96,7 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
         }
 
         @Override
-        public Optional<Boolean> execute() {
+        public Optional<String> execute() {
             return build().getCommand().execute();
         }
     }
