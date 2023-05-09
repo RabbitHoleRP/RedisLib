@@ -7,13 +7,12 @@ import java.util.Optional;
  * @Usage Representa a Execução de um Comando do Redis.
  * @since 2.0
  * @version 1.0
- * @param <T> Genérico - Valor genérico utilizado para definir o Retorno no método execute().
  */
-public interface Execute<T> {
+public interface Execute {
 
     /**
      * @Usage Utilizado para pegar o Valor do comando Executado!
      * @return Optional Genérico - Retorna o Valor do comando Executado.
      */
-    Optional<T> execute();
+    Optional<?> execute();
 }

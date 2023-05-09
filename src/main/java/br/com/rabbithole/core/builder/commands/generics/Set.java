@@ -13,7 +13,7 @@ import redis.clients.jedis.params.SetParams;
 
 import java.util.Optional;
 
-public class Set implements Command, Write<String>, CommandOptions<SetOptions>, Execute<String> {
+public class Set implements Command, Write<String>, CommandOptions<SetOptions>, Execute {
     private final String key;
     private final String value;
     private final SetOptions options;
@@ -39,7 +39,7 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
     }
 
     @Override
-    public Optional<String> execute() { //TODO: EM TESTES! SERÁ ALTERADO PARA PROTOCOL COMMAND!
+    public Optional<?> execute() { //TODO: EM TESTES! SERÁ ALTERADO PARA PROTOCOL COMMAND!
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
             int expireTime = getOptions().getExpire();
             if (options.isIfNotExists()) {
@@ -54,10 +54,10 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
                 if (expireTime != 0) jedis.setex(getKey(), expireTime, getValue());
                 jedis.set(getKey(), getValue());
             }
-            return Optional.of("1");
+            return Optional.of(true);
         } catch (Exception exception) {
             exception.printStackTrace();
-            return Optional.of("0");
+            return Optional.of(false);
         }
     }
 
@@ -71,7 +71,7 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<String> {
+    public static class Builder implements Execute {
         private String key;
         private String value;
         private SetOptions options;
@@ -96,7 +96,7 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
         }
 
         @Override
-        public Optional<String> execute() {
+        public Optional<?> execute() {
             return build().getCommand().execute();
         }
     }

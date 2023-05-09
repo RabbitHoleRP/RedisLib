@@ -11,7 +11,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class Expire implements Command, Write<Integer>, CommandOptions<ExpireOptions>, Execute<Boolean> {
+public class Expire implements Command, Write<Integer>, CommandOptions<ExpireOptions>, Execute {
     private final String key;
     private final int value;
     private final ExpireOptions options;
@@ -57,7 +57,7 @@ public class Expire implements Command, Write<Integer>, CommandOptions<ExpireOpt
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<Boolean> {
+    public static class Builder implements Execute{
         private String key;
         private int value;
         private ExpireOptions options;

@@ -9,7 +9,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class Exists implements Command, Read, Execute<Boolean> {
+public class Exists implements Command, Read, Execute {
     private final String key;
 
     @Override
@@ -37,7 +37,7 @@ public class Exists implements Command, Read, Execute<Boolean> {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<Boolean> {
+    public static class Builder implements Execute {
         private String key;
 
         public Builder setKey(String key) {

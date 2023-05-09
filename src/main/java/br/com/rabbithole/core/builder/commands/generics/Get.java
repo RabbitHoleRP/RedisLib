@@ -9,7 +9,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class Get implements Command, Read, Execute<String> {
+public class Get implements Command, Read, Execute {
     private final String key;
 
     @Override
@@ -40,7 +40,7 @@ public class Get implements Command, Read, Execute<String> {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<String> {
+    public static class Builder implements Execute {
         private String key;
 
         public Builder setKey(String key) {

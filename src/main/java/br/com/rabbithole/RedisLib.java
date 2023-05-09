@@ -36,8 +36,20 @@ public class RedisLib {
                 .setKey("Foo")
                 .execute();
 
+        Optional<?> setQueryResult = new Set.Builder()
+                .setKey("a")
+                .setKey("b")
+                .setOptions(new SetOptions.Builder()
+                        .setGet()
+                        .build())
+                .execute();
+
         getQuery.ifPresent((var) -> {
             System.out.println("Resultado " + var);
+        });
+
+        setQueryResult.ifPresent((var) -> {
+            System.out.println("Resultado: " + var);
         });
     }
 

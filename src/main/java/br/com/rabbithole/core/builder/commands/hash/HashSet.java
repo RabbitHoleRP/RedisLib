@@ -9,7 +9,7 @@ import br.com.rabbithole.core.builder.options.HashSetOptions;
 
 import java.util.Optional;
 
-public class HashSet implements Command, HashWrite<String>, CommandOptions<HashSetOptions>, Execute<Boolean> {
+public class HashSet implements Command, HashWrite<String>, CommandOptions<HashSetOptions>, Execute {
     private final String key;
     private final String field;
     private final String value;
@@ -56,7 +56,7 @@ public class HashSet implements Command, HashWrite<String>, CommandOptions<HashS
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<Boolean> {
+    public static class Builder implements Execute {
         private String key;
         private String field;
         private String value;
