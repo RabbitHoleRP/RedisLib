@@ -2,8 +2,6 @@ package br.com.rabbithole;
 
 import br.com.rabbithole.configurations.RedisConfig;
 import br.com.rabbithole.configurations.RedisConfiguration;
-import br.com.rabbithole.core.builder.Query;
-import br.com.rabbithole.core.builder.commands.generics.Del;
 import br.com.rabbithole.core.builder.commands.generics.Get;
 import br.com.rabbithole.core.builder.commands.generics.Set;
 import br.com.rabbithole.core.builder.options.SetOptions;
@@ -36,11 +34,10 @@ public class RedisLib {
                 .setKey("Foo")
                 .execute();
 
-        Optional<?> setQueryResult = new Set.Builder()
+        Optional<Boolean> setQueryResult = new Set.Builder()
                 .setKey("a")
                 .setKey("b")
                 .setOptions(new SetOptions.Builder()
-                        .setGet()
                         .build())
                 .execute();
 

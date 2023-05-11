@@ -9,7 +9,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class Del implements Command, Read, Execute {
+public class Del implements Command, Read, Execute<Boolean> {
     private final String key;
 
     @Override
@@ -41,7 +41,7 @@ public class Del implements Command, Read, Execute {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute {
+    public static class Builder implements Execute<Boolean> {
         private String key;
 
         public Builder setKey(String key) {

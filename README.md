@@ -33,7 +33,7 @@ public class Main {
         Query<Get> getQuery = new Get.Builder()
                 .setKey("Foo")
                 .build();
-        
+
         //Execução da Query após a construção.
         Optional<String> resultOfGetQuery = getQuery.getCommand().execute();
 

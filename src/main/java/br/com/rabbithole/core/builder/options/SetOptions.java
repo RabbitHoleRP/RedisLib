@@ -42,6 +42,7 @@ public class SetOptions implements Options {
             return this;
         }
 
+        /* TODO: DESATIVADO TEMPORARIAMENTE!
         public Builder setIfNotExists() {
             this.ifNotExists = true;
             return this;
@@ -56,7 +57,7 @@ public class SetOptions implements Options {
             this.get = true;
             return this;
         }
-
+         */
         public SetOptions build() {
             return new SetOptions(this);
         }
