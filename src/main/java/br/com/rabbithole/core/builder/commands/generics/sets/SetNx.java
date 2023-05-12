@@ -1,23 +1,24 @@
-package br.com.rabbithole.core.builder.commands.hash;
+package br.com.rabbithole.core.builder.commands.generics.sets;
 
+import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
-import br.com.rabbithole.core.builder.base.actions.HashWrite;
+import br.com.rabbithole.core.builder.base.actions.Write;
 import br.com.rabbithole.core.builder.base.options.CommandOptions;
-import br.com.rabbithole.core.builder.options.HashSetOptions;
+import br.com.rabbithole.core.builder.options.SetOptions;
+import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class HashSet implements Command, HashWrite<String>, CommandOptions<HashSetOptions>, Execute {
+public class SetNx implements Command, Write<String>, CommandOptions<SetOptions>, Execute<Boolean> {
     private final String key;
-    private final String field;
     private final String value;
-    private final HashSetOptions options;
+    private final SetOptions options;
 
     @Override
     public String commandName() {
-        return "hashSet";
+        return "setXx";
     }
 
     @Override
@@ -26,50 +27,45 @@ public class HashSet implements Command, HashWrite<String>, CommandOptions<HashS
     }
 
     @Override
-    public String getField() {
-        return this.field;
-    }
-
-    @Override
     public String getValue() {
         return this.value;
     }
 
     @Override
-    public HashSetOptions getOptions() {
+    public SetOptions getOptions() {
         return this.options;
     }
 
-    @Override //TODO: IMPLEMENTAR DPS
+    @Override
     public Optional<Boolean> execute() {
-        return Optional.empty();
+        try (Jedis jedis = RedisLib.getJedis().getResource()) {
+            int expireTime = getOptions().getExpire();
+            if (expireTime != 0) {
+                boolean resultOfQuery = jedis.setnx(getKey(), getValue()) != 0;
+                if (resultOfQuery) return Optional.of(jedis.expire(getKey(), expireTime) != 0);
+                return Optional.of(false);
+            }
+            return Optional.of(jedis.setnx(getKey(), getValue()) != 0);
+        }
     }
 
-    private HashSet(Builder builder) {
+    private SetNx(Builder builder) {
         this.key = builder.key;
-        this.field = builder.field;
         this.value = builder.value;
         this.options = builder.options;
     }
 
-    private Query<HashSet> query() {
+    private Query<SetNx> query() {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute {
+    public static class Builder implements Execute<Boolean> {
         private String key;
-        private String field;
         private String value;
-        private HashSetOptions options;
-
+        private SetOptions options;
 
         public Builder setKey(String key) {
             this.key = key;
-            return this;
-        }
-
-        public Builder setField(String field) {
-            this.field = field;
             return this;
         }
 
@@ -78,13 +74,13 @@ public class HashSet implements Command, HashWrite<String>, CommandOptions<HashS
             return this;
         }
 
-        public Builder setOptions(HashSetOptions options) {
+        public Builder setOptions(SetOptions options) {
             this.options = options;
             return this;
         }
 
-        public Query<HashSet> build() {
-            return new HashSet(this).query();
+        public Query<SetNx> build() {
+            return new SetNx(this).query();
         }
 
         @Override

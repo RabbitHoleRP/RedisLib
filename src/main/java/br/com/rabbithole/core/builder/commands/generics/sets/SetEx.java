@@ -1,24 +1,22 @@
-package br.com.rabbithole.core.builder.commands.generics;
+package br.com.rabbithole.core.builder.commands.generics.sets;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
-import br.com.rabbithole.core.builder.base.options.CommandOptions;
 import br.com.rabbithole.core.builder.base.actions.Write;
-import br.com.rabbithole.core.builder.options.SetOptions;
 import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class Set implements Command, Write<String>, CommandOptions<SetOptions>, Execute<Boolean> {
+public class SetEx implements Command, Write<String>, Execute<Boolean> {
     private final String key;
     private final String value;
-    private final SetOptions options;
+    private final int expireTime;
 
     @Override
     public String commandName() {
-        return "set";
+        return "setEx";
     }
 
     @Override
@@ -31,36 +29,31 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
         return this.value;
     }
 
-    @Override
-    public SetOptions getOptions() {
-        return this.options;
+    public int getExpireTime() {
+        return this.expireTime;
     }
 
     @Override
     public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
-            jedis.set(getKey(), getValue());
-            return Optional.of(true);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return Optional.of(false);
+            return Optional.of(jedis.setex(getKey(), getExpireTime(), getValue()).equals("OK"));
         }
     }
 
-    private Set(Builder builder) {
+    private SetEx(Builder builder) {
         this.key = builder.key;
         this.value = builder.value;
-        this.options = builder.options;
+        this.expireTime = builder.expireTime;
     }
 
-    private Query<Set> query() {
+    private Query<SetEx> query() {
         return new Query<>(this);
     }
 
     public static class Builder implements Execute<Boolean> {
         private String key;
         private String value;
-        private SetOptions options;
+        private int expireTime;
 
         public Builder setKey(String key) {
             this.key = key;
@@ -72,13 +65,13 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
             return this;
         }
 
-        public Builder setOptions(SetOptions options) {
-            this.options = options;
+        public Builder setExpire(int time) {
+            this.expireTime = time;
             return this;
         }
 
-        public Query<Set> build() {
-            return new Set(this).query();
+        public Query<SetEx> build() {
+            return new SetEx(this).query();
         }
 
         @Override

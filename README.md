@@ -18,7 +18,7 @@ import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.configurations.RedisConfig;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.commands.generics.Get;
-import br.com.rabbithole.core.builder.commands.generics.Set;
+import br.com.rabbithole.core.builder.commands.generics.sets.Set;
 import br.com.rabbithole.core.builder.options.SetOptions;
 
 import java.util.Optional;
@@ -33,7 +33,7 @@ public class Main {
         Query<Get> getQuery = new Get.Builder()
                 .setKey("Foo")
                 .build();
-        
+
         //Execução da Query após a construção.
         Optional<String> resultOfGetQuery = getQuery.getCommand().execute();
 

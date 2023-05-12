@@ -23,9 +23,10 @@ public class Get implements Command, Read, Execute<String> {
     }
 
     @Override
-    public Optional<String> execute() { //TODO: IMPLEMENTAR HANDLER DE VALIDAÇÃO!
+    public Optional<String> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
-            return Optional.of(jedis.get(getKey()));
+            String result = jedis.get(getKey());
+            return (!result.equals("nil") ? Optional.of(result) : Optional.empty());
         } catch (Exception exception) {
             return Optional.empty();
         }
