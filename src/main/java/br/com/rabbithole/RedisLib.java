@@ -3,7 +3,7 @@ package br.com.rabbithole;
 import br.com.rabbithole.configurations.RedisConfig;
 import br.com.rabbithole.configurations.RedisConfiguration;
 import br.com.rabbithole.core.builder.commands.generics.Get;
-import br.com.rabbithole.core.builder.commands.generics.Set;
+import br.com.rabbithole.core.builder.commands.generics.sets.Set;
 import br.com.rabbithole.core.builder.options.SetOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
