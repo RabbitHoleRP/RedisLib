@@ -10,19 +10,19 @@ Foi criada para facilitar o desenvolvimento de aplicações que utilizam o **Red
 
 >### Tópicos
 >
->> - [Referências](#referências)
+>> [Referências](#referências)
 >
->> - [Uso/Exemplos](#usoexemplos)
+>> [Uso/Exemplos](#usoexemplos)
 >
->> - [Funcionalidades](#funcionalidades)
+>> [Funcionalidades](#funcionalidades)
 >
->> - [Instalação](#instalação)
+>> [Instalação](#instalação)
 >
->> - [Desenvolvedores](#desenvolvedores)
+>> [Desenvolvedores](#desenvolvedores)
 >
->> - [Contribuidores](#contribuidores)
+>> [Contribuidores](#contribuidores)
 >
->> - [Licença](#licença)
+>> [Licença](#licença)
 
 ---
 
