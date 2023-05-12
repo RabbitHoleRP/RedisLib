@@ -8,10 +8,7 @@ import br.com.rabbithole.core.builder.base.options.CommandOptions;
 import br.com.rabbithole.core.builder.base.actions.Write;
 import br.com.rabbithole.core.builder.options.SetOptions;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Transaction;
-import redis.clients.jedis.params.SetParams;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,7 +52,7 @@ public class Set implements Command, Write<String>, CommandOptions<SetOptions>, 
                 return Optional.of(true);
             }
             jedis.set(getKey(), getValue());
-            return Optional.of(true);
+            return Optional.of(jedis.set(getKey(), getValue()).equals("OK"));
         } catch (Exception exception) {
             exception.printStackTrace();
             return Optional.of(false);
