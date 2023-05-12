@@ -39,11 +39,13 @@ public class SetNx implements Command, Write<String>, CommandOptions<SetOptions>
     @Override
     public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
-            int expireTime = getOptions().getExpire();
-            if (expireTime != 0) {
-                boolean resultOfQuery = jedis.setnx(getKey(), getValue()) != 0;
-                if (resultOfQuery) return Optional.of(jedis.expire(getKey(), expireTime) != 0);
-                return Optional.of(false);
+            if (getOptions() != null) {
+                int expireTime = getOptions().getExpire();
+                if (expireTime != 0) {
+                    boolean resultOfQuery = jedis.setnx(getKey(), getValue()) != 0;
+                    if (resultOfQuery) return Optional.of(jedis.expire(getKey(), expireTime) != 0);
+                    return Optional.of(false);
+                }
             }
             return Optional.of(jedis.setnx(getKey(), getValue()) != 0);
         }
