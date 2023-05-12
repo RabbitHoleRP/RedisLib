@@ -40,7 +40,7 @@ public class Expire implements Command, Write<Integer>, CommandOptions<ExpireOpt
     public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
             jedis.expire(getKey(), getValue());
-            return Optional.of(true);
+            return Optional.of(jedis.expire(getKey(), getValue()) != 0);
         } catch (Exception exception) {
             exception.printStackTrace();
             return Optional.of(false);
