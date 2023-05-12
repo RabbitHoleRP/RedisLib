@@ -1,17 +1,10 @@
-<style>
-.highlight {
-    background-color: #161b22;
-    padding: 5px;
-    border-radius: 4px;
-    text-align: center;
-}
-</style>
-
 # RedisLib
 
-<div class="highlight">
+<div align="center" style="background-color: #161b22; border-radius: 4px; padding: 5px;">
 
-<span>**RedisLib** é uma biblioteca para o [Redis](https://redis.io/) que, mesmo sendo leve e simples de usar, se mostra poderosa e eficiente. Foi criada para facilitar o desenvolvimento de aplicações que utilizam o **Redis**.</span>
+**RedisLib** é uma biblioteca para o [Redis](https://redis.io/) que, 
+mesmo sendo leve e simples de usar, se mostra poderosa e eficiente. 
+Foi criada para facilitar o desenvolvimento de aplicações que utilizam o **Redis**.
 
 </div>
 
@@ -39,14 +32,16 @@
 
 <a href="https://redis.io"><img style="display: inline-block; vertical-align: middle;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" width="90" height="90"></a>
 
-<a href="https://pt.wikipedia.org/wiki/Princípio_KISS"><span style="font-size: 5em; display: inline-block; vertical-align: middle;">💋</span></a>
-<a href="https://en.wikipedia.org/wiki/Overengineering"><span style="font-size: 5em; display: inline-block; vertical-align: middle;">⚙️</span></a>
+<a href="https://pt.wikipedia.org/wiki/Princípio_KISS"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f48b.png" width="60" height="60"></a>
+<a href="https://en.wikipedia.org/wiki/Overengineering"><img src="https://github.githubassets.com/images/icons/emoji/unicode/2699.png" width="60" height="60"></a>
 
 </div>
 
 ---
 
 ## Uso/Exemplos
+
+
 
 ```java
 import br.com.rabbithole.RedisLib;
