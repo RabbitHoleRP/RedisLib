@@ -1,6 +1,6 @@
 # RedisLib
 
-<div align="center" style="background-color: #161b22; border-radius: 4px; padding: 5px;">
+<div align="center">
 
 **RedisLib** é uma biblioteca para o [Redis](https://redis.io/) que, 
 mesmo sendo leve e simples de usar, se mostra poderosa e eficiente. 
@@ -40,8 +40,6 @@ Foi criada para facilitar o desenvolvimento de aplicações que utilizam o **Red
 ---
 
 ## Uso/Exemplos
-
-
 
 ```java
 import br.com.rabbithole.RedisLib;
