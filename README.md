@@ -1,15 +1,43 @@
-
 # RedisLib
 
-**RedisLib** é uma biblioteca para [redis](https://redis.io/) leve e simples de usar — porém muito poderoso — foi criada para facilitar no desenvolvimento de aplicações que utilizam o **Redis**.
+<div align="center">
 
+**RedisLib** é uma biblioteca para o [Redis](https://redis.io/) que, 
+mesmo sendo leve e simples de usar, se mostra poderosa e eficiente. 
+Foi criada para facilitar o desenvolvimento de aplicações que utilizam o **Redis**.
 
-## Referência
+</div>
 
- - [Redis](https://redis.io/)
- - [Overengineering](https://en.wikipedia.org/wiki/Overengineering)
- - [💋](https://pt.wikipedia.org/wiki/Princ%C3%ADpio_KISS)
+>### Tópicos
+>
+>> [Referências](#referências)
+>
+>> [Uso/Exemplos](#usoexemplos)
+>
+>> [Funcionalidades](#funcionalidades)
+>
+>> [Instalação](#instalação)
+>
+>> [Desenvolvedores](#desenvolvedores)
+>
+>> [Contribuidores](#contribuidores)
+>
+>> [Licença](#licença)
 
+---
+
+## Referências
+
+<div align="center">
+
+<a href="https://redis.io"><img style="display: inline-block; vertical-align: middle;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" width="90" height="90"></a>
+
+<a href="https://pt.wikipedia.org/wiki/Princípio_KISS"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f48b.png" width="60" height="60"></a>
+<a href="https://en.wikipedia.org/wiki/Overengineering"><img src="https://github.githubassets.com/images/icons/emoji/unicode/2699.png" width="60" height="60"></a>
+
+</div>
+
+---
 
 ## Uso/Exemplos
 
@@ -62,16 +90,18 @@ public class Main {
 }
 ```
 
+---
 
 ## Funcionalidades
 
-
+---
 
 ## Instalação
 
-1. Adicione o repositório ao seu projeto.
+> 1. Adicione o repositório ao seu projeto.
 
-**Maven**:
+**Maven:**
+
 ```xml
 <repository>
   <id>rabbithole-repo-snapshots</id>
@@ -80,22 +110,28 @@ public class Main {
 </repository>
 ```
 
-**Gradle(Groovy)**:
+**Gradle (Groovy):**
+
 ```groovy
 maven {
     url "https://repo.rabbithole.com.br/snapshots"
 }
 ```
 
-**Gradle(Kotlin)**:
+**Gradle (Kotlin):**
+
 ```kotlin
 maven {
     url = uri("https://repo.rabbithole.com.br/snapshots")
 }
 ```
-2. Adicione a dependência.
+
+---
+
+> 2. Adicione a dependência.
 
 **Maven**:
+
 ```xml
 <dependency>
   <groupId>br.com.rabbithole</groupId>
@@ -104,16 +140,36 @@ maven {
 </dependency>
 ```
 
-**Gradle(Groovy)**:
+**Gradle (Groovy):**
+
 ```groovy
 implementation "br.com.rabbithole:RedisLib:2.0.0-SNAPSHOT"
 ```
 
-**Gradle(Kotlin)**:
+**Gradle (Kotlin):**
+
 ```kotlin
 implementation("br.com.rabbithole:RedisLib:0.0.0-SNAPSHOT")
 ```
+
+---
+
+> ## Desenvolvedores
+>
+>> [Felipe Ros Segundo Simão](https://github.com/FelipeRos19)
+
+> ## Contribuidores
+> 
+>> [Gabriel Monção Fekete](https://github.com/gabrielfeket)
+> 
+>> [Murilo Gotardo Pommerening](https://github.com/Murilo-Gotardo)
+
+---
+
 ## Licença
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
+---
+
+<p align="center">Felipe Ros Segundo Simão OS 2023 - RedisLib</p>
