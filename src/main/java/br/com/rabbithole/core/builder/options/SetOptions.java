@@ -3,10 +3,15 @@ package br.com.rabbithole.core.builder.options;
 import br.com.rabbithole.core.builder.base.options.Options;
 
 public class SetOptions implements Options {
+    private final boolean ifExpire;
     private final int expire;
     private final boolean ifNotExists;
     private final boolean ifExists;
     private final boolean get;
+
+    public boolean isIfExpire() {
+        return ifExpire;
+    }
 
     public int getExpire() {
         return expire;
@@ -25,6 +30,7 @@ public class SetOptions implements Options {
     }
 
     private SetOptions(Builder builder) {
+        this.ifExpire= builder.ifExpire;
         this.expire = builder.expire;
         this.ifNotExists = builder.ifNotExists;
         this.ifExists = builder.ifExists;
@@ -32,12 +38,14 @@ public class SetOptions implements Options {
     }
 
     public static class Builder {
+        private boolean ifExpire = false;
         private int expire;
         private boolean ifNotExists;
         private boolean ifExists;
         private boolean get;
 
         public Builder setExpire(int seconds) {
+            this.ifExpire = true;
             this.expire = seconds;
             return this;
         }

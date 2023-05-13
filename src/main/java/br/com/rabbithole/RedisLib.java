@@ -30,22 +30,20 @@ public class RedisLib {
     public static void main(String[] args) {
         RedisLib.init(new RedisConfig("Test", "localhost", 6379, "default", "1234", 100));
 
-        Optional<String> getQuery = new Get.Builder()
-                .setKey("Foo")
+        var setQueryResult = new Set.Builder()
+                .setKey("Foo2")
+                .setValue("Bar")
                 .execute();
 
-        Optional<Boolean> setQueryResult = new Set.Builder()
-                .setKey("a")
-                .setKey("b")
-                .setOptions(new SetOptions.Builder()
-                        .build())
-                .execute();
-
-        getQuery.ifPresent((var) -> {
-            System.out.println("Resultado " + var);
-        });
+        var getQueryResult = new Get.Builder()
+                .setKey("Foo2")
+                        .execute();
 
         setQueryResult.ifPresent((var) -> {
+            System.out.println("Resultado: " + var);
+        });
+
+        getQueryResult.ifPresent((var) -> {
             System.out.println("Resultado: " + var);
         });
     }

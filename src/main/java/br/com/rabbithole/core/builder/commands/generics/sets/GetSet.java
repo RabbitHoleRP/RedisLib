@@ -39,11 +39,13 @@ public class GetSet implements Command, Write<String>, CommandOptions<SetOptions
     @Override
     public Optional<String> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
-            int expireTime = getOptions().getExpire();
-            if (expireTime != 0) {
-                String resultOfQuery = jedis.getSet(getKey(), getValue());
-                jedis.expire(getKey(), expireTime);
-                return Optional.of(resultOfQuery);
+            if (getOptions() != null) {
+                int expireTime = getOptions().getExpire();
+                if (expireTime != 0) {
+                    String resultOfQuery = jedis.getSet(getKey(), getValue());
+                    jedis.expire(getKey(), expireTime);
+                    return Optional.of(resultOfQuery);
+                }
             }
             return Optional.of(jedis.getSet(getKey(), getValue()));
         }

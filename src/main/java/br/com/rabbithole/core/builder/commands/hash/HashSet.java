@@ -1,15 +1,17 @@
 package br.com.rabbithole.core.builder.commands.hash;
 
+import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
 import br.com.rabbithole.core.builder.base.actions.HashWrite;
 import br.com.rabbithole.core.builder.base.options.CommandOptions;
 import br.com.rabbithole.core.builder.options.HashSetOptions;
+import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class HashSet implements Command, HashWrite<String>, CommandOptions<HashSetOptions>, Execute {
+public class HashSet implements Command, HashWrite<String>, CommandOptions<HashSetOptions>, Execute<Boolean> {
     private final String key;
     private final String field;
     private final String value;
@@ -40,9 +42,14 @@ public class HashSet implements Command, HashWrite<String>, CommandOptions<HashS
         return this.options;
     }
 
-    @Override //TODO: IMPLEMENTAR DPS
+    @Override
     public Optional<Boolean> execute() {
-        return Optional.empty();
+        try (Jedis jedis = RedisLib.getJedis().getResource()) {
+            return Optional.of(jedis.hset(getKey(), getField(), getValue()) >= 0);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return Optional.of(false);
+        }
     }
 
     private HashSet(Builder builder) {
@@ -56,7 +63,7 @@ public class HashSet implements Command, HashWrite<String>, CommandOptions<HashS
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute {
+    public static class Builder implements Execute<Boolean> {
         private String key;
         private String field;
         private String value;
