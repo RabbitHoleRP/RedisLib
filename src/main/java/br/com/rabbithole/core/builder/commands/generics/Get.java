@@ -28,6 +28,7 @@ public class Get implements Command, Read, Execute<String> {
             String result = jedis.get(getKey());
             return (!result.equals("nil") ? Optional.of(result) : Optional.empty());
         } catch (Exception exception) {
+            exception.printStackTrace();
             return Optional.empty();
         }
     }

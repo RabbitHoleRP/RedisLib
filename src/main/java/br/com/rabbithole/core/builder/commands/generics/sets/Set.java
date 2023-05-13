@@ -4,9 +4,7 @@ import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
-import br.com.rabbithole.core.builder.base.options.CommandOptions;
 import br.com.rabbithole.core.builder.base.actions.Write;
-import br.com.rabbithole.core.builder.options.SetOptions;
 import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
