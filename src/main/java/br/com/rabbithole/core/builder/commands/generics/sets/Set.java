@@ -40,7 +40,9 @@ public class Set implements Command, Write<String>, Execute<Boolean> {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
             return Optional.of(jedis.set(getKey(), getValue()).equals("OK"));
         } catch (Exception exception) {
-            exception.printStackTrace();
+            //RedisLib.getLogger().error("Set Exception: ", exception);
+            RedisLib.getLogger().info("Set Exception: " + exception);
+            //exception.printStackTrace();
             return Optional.of(false);
         }
     }

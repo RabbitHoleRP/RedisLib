@@ -25,10 +25,11 @@ public class Get implements Command, Read, Execute<String> {
     @Override
     public Optional<String> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
+            if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + ".");
             String result = jedis.get(getKey());
             return (!result.equals("nil") ? Optional.of(result) : Optional.empty());
         } catch (Exception exception) {
-            exception.printStackTrace();
+            RedisLib.getLogger().error("Query: " + commandName(), exception);
             return Optional.empty();
         }
     }

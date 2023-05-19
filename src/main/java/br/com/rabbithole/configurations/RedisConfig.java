@@ -8,6 +8,7 @@ package br.com.rabbithole.configurations;
  */
 public class RedisConfig {
     private String prefix;
+    private boolean debug;
     private String host;
     private int port;
     private String user;
@@ -17,14 +18,16 @@ public class RedisConfig {
     /**
      * @Usage Construir configurações de conexão do Redis.
      * @param prefix String - Prefix das Logs.
+     * @param debug Boolean - Se depuração está ativa.
      * @param host String - Endereço para conexão do Redis.
      * @param port int - Porta para conexão do Redis.
      * @param user String - Usuário para conexão do Redis.
      * @param password String - Senha para conexão do Redis.
      * @param connections int - Número de conexões disponíveis no Redis.
      */
-    public RedisConfig(String prefix, String host, int port, String user, String password, int connections) {
+    public RedisConfig(String prefix, boolean debug, String host, int port, String user, String password, int connections) {
         this.prefix = prefix;
+        this.debug = debug;
         this.host = host;
         this.port = port;
         this.user = user;
@@ -46,6 +49,22 @@ public class RedisConfig {
      */
     public void setPrefix(String prefix) {
         this.prefix = prefix;
+    }
+
+    /**
+     * @Usage Utilizado para pegar o Estado de Depuração.
+     * @return Boolean - Retorna o Estado de Depuração
+     */
+    public boolean isDebug() {
+        return debug;
+    }
+
+    /**
+     * @Usage Utilizado para definir o Estado de Depuração.
+     * @param debug Boolean - Estado de Depuração.
+     */
+    public void setDebug(boolean debug) {
+        this.debug = debug;
     }
 
     /**
