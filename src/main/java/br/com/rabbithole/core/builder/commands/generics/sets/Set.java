@@ -38,11 +38,10 @@ public class Set implements Command, Write<String>, Execute<Boolean> {
     @Override
     public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
+            if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
             return Optional.of(jedis.set(getKey(), getValue()).equals("OK"));
         } catch (Exception exception) {
-            //RedisLib.getLogger().error("Set Exception: ", exception);
-            RedisLib.getLogger().info("Set Exception: " + exception);
-            //exception.printStackTrace();
+            RedisLib.getLogger().error("Query: " + commandName(), exception);
             return Optional.of(false);
         }
     }

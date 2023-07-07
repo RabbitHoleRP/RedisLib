@@ -25,7 +25,11 @@ public class Exists implements Command, Read, Execute<Boolean> {
     @Override
     public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
+            if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
             return Optional.of(jedis.exists(getKey()));
+        } catch (Exception exception) {
+            RedisLib.getLogger().error("Query: " + commandName(), exception);
+            return Optional.of(false);
         }
     }
 
