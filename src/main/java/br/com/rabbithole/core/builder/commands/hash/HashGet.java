@@ -32,9 +32,10 @@ public class HashGet implements Command, HashRead, Execute<String> {
     public Optional<String> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
             String result = jedis.hget(getKey(), getField());
+            if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
             return (!result.equals("nil") ? Optional.of(result) : Optional.empty());
         } catch (Exception exception) {
-            exception.printStackTrace();
+            RedisLib.getLogger().error("Query: " + commandName(), exception);
             return Optional.empty();
         }
     }

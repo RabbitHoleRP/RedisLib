@@ -45,9 +45,10 @@ public class HashSet implements Command, HashWrite<String>, CommandOptions<HashS
     @Override
     public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
+            if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
             return Optional.of(jedis.hset(getKey(), getField(), getValue()) >= 0);
         } catch (Exception exception) {
-            exception.printStackTrace();
+            RedisLib.getLogger().error("Query: " + commandName(), exception);
             return Optional.of(false);
         }
     }

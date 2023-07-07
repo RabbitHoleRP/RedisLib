@@ -44,10 +44,14 @@ public class GetSet implements Command, Write<String>, CommandOptions<SetOptions
                 if (expireTime != 0) {
                     String resultOfQuery = jedis.getSet(getKey(), getValue());
                     jedis.expire(getKey(), expireTime);
+                    if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
                     return Optional.of(resultOfQuery);
                 }
             }
             return Optional.of(jedis.getSet(getKey(), getValue()));
+        } catch (Exception exception) {
+            RedisLib.getLogger().error("Query: " + commandName(), exception);
+            return Optional.empty();
         }
     }
 

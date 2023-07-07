@@ -44,10 +44,14 @@ public class SetNx implements Command, Write<String>, CommandOptions<SetOptions>
                 if (expireTime != 0) {
                     boolean resultOfQuery = jedis.setnx(getKey(), getValue()) != 0;
                     if (resultOfQuery) return Optional.of(jedis.expire(getKey(), expireTime) != 0);
+                    if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
                     return Optional.of(false);
                 }
             }
             return Optional.of(jedis.setnx(getKey(), getValue()) != 0);
+        } catch (Exception exception) {
+            RedisLib.getLogger().error("Query: " + commandName(), exception);
+            return Optional.of(false);
         }
     }
 
