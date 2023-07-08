@@ -11,7 +11,7 @@ import java.util.Optional;
 
 /**
  * @author Felipe Ros
- * @Usage Representa o Comando Set do banco de dados Redis.
+ * @Usage Represents the command Set on Redis database.
  * @since 2.0
  * @version 1.0
  *

@@ -2,22 +2,22 @@ package br.com.rabbithole.core.builder.base.actions;
 
 /**
  * @author Felipe Ros
- * @Usage Representação da Ação Read no banco de dados Redis.
+ * @Usage Representation of the Action Write on Redis database.
  * @since 2.0
  * @version 1.0
- * @param <Q> Genérico - Valor genérico utilizado no método getValue().
+ * @param <Q> Generic - Generic value used on getValue() method.
  */
 public interface Write<Q> {
 
     /**
-     * @Usage Utilizado para pegar a Chave.
-     * @return String - Retorna a Chave.
+     * @Usage Used to get the Key.
+     * @return String - Returns the Key.
      */
     String getKey();
 
     /**
-     * @Usage Utilizado para pegar o Valor.
-     * @return Genérico - Retorna o Valor.
+     * @Usage Used to get the Value.
+     * @return Genérico - Returns the Value.
      */
     Q getValue();
 }

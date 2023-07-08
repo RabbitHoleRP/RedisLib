@@ -2,28 +2,28 @@ package br.com.rabbithole.core.builder.base.actions;
 
 /**
  * @author Felipe Ros
- * @Usage Representação da Ação Write em Hash no banco de dados Redis.
+ * @Usage Representation of the Action Write in Hash on Redis database.
  * @since 2.0
  * @version 1.0
- * @param <Q> Genérico - Valor genérico utilizado no método getValue().
+ * @param <Q> Generic - Generic value used on getValue() method.
  */
 public interface HashWrite<Q> {
 
     /**
-     * @Usage Utilizado para pegar a Chave.
-     * @return String - Retorna a Chave.
+     * @Usage Used to get the Key.
+     * @return String - Returns the Key.
      */
     String getKey();
 
     /**
-     * @Usage Utilizado para pegar o Campo.
-     * @return String - Retorna o Campo.
+     * @Usage Used to get the Field.
+     * @return String - Returns the Field.
      */
     String getField();
 
     /**
-     * @Usage Utilizado para pegar o Valor.
-     * @return Genérico - Retorna o Valor.
+     * @Usage Used to get the Value.
+     * @return Genérico - Returns the Value.
      */
     Q getValue();
 }
