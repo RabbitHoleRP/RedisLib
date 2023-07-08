@@ -2,7 +2,7 @@ package br.com.rabbithole.core.builder.base.options;
 
 /**
  * @author Felipe Ros
- * @Usage Representação inicial das opções de comando Redis.
+ * @Usage Initial representation of Redis command options.
  * @since 2.0
  * @version 1.0
  */

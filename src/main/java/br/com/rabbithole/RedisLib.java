@@ -8,7 +8,7 @@ import redis.clients.jedis.JedisPool;
 
 /**
  * @author Felipe Ros
- * @Usage Classe de acesso a Biblioteca.
+ * @Usage Library's access class.
  * @since 1.0
  */
 public class RedisLib {

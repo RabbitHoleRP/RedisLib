@@ -2,7 +2,7 @@ package br.com.rabbithole.configurations;
 
 /**
  * @author Felipe Ros
- * @Usage Classe que representa a configuração do Redis.
+ * @Usage Class that represents Redis's settings.
  * @since 2.0
  * @version 1.0
  */
@@ -16,14 +16,14 @@ public class RedisConfig {
     private int connections;
 
     /**
-     * @Usage Construir configurações de conexão do Redis.
-     * @param prefix String - Prefix das Logs.
-     * @param debug Boolean - Se depuração está ativa.
-     * @param host String - Endereço para conexão do Redis.
-     * @param port int - Porta para conexão do Redis.
-     * @param user String - Usuário para conexão do Redis.
-     * @param password String - Senha para conexão do Redis.
-     * @param connections int - Número de conexões disponíveis no Redis.
+     * @Usage Build Redis connection config.
+     * @param prefix String - Logs Prefixes.
+     * @param debug Boolean - Is debugging.
+     * @param host String - Address for Redis connection.
+     * @param port int - Port for Redis connection.
+     * @param user String - User for Redis connection.
+     * @param password String - Password for Redis connection.
+     * @param connections int - Number of available connections in Redis.
      */
     public RedisConfig(String prefix, boolean debug, String host, int port, String user, String password, int connections) {
         this.prefix = prefix;
@@ -36,112 +36,112 @@ public class RedisConfig {
     }
 
     /**
-     * @Usage Utilizado para pegar a Prefix.
-     * @return String - Retorna a Prefix.
+     * @Usage Used to get the Prefix.
+     * @return String - Returns the Prefix.
      */
     public String getPrefix() {
         return prefix;
     }
 
     /**
-     * @Usage Utilizado para definir a Prefix.
-     * @param prefix String - Prefix das Logs.
+     * @Usage Used to set the Prefix.
+     * @param prefix String - Logs Prefix.
      */
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
 
     /**
-     * @Usage Utilizado para pegar o Estado de Depuração.
-     * @return Boolean - Retorna o Estado de Depuração
+     * @Usage Used to get the debugging state.
+     * @return Boolean - Returns debugging state
      */
     public boolean isDebug() {
         return debug;
     }
 
     /**
-     * @Usage Utilizado para definir o Estado de Depuração.
-     * @param debug Boolean - Estado de Depuração.
+     * @Usage Used to set the debugging state.
+     * @param debug Boolean - Debugging state.
      */
     public void setDebug(boolean debug) {
         this.debug = debug;
     }
 
     /**
-     * @Usage Utilizado para pegar o Endereço de Conexão.
-     * @return String - Retorna o Endereço de Conexão.
+     * @Usage Used to get the connection address.
+     * @return String - Returns the connection address.
      */
     public String getHost() {
         return host;
     }
 
     /**
-     * @Usage Utilizado para definir o Endereço de Conexão.
-     * @param host String - Endereço de Conexão.
+     * @Usage Used to set the connection address.
+     * @param host String - Connection address.
      */
     public void setHost(String host) {
         this.host = host;
     }
 
     /**
-     * @Usage Utilizado para pegar a Porta de Conexão.
-     * @return int - Retorna a Porta de Conexão.
+     * @Usage Used to get the connection port.
+     * @return int - Returns the connection port.
      */
     public int getPort() {
         return port;
     }
 
     /**
-     * @Usage Utilizado para definir a Porta de Conexão.
-     * @param port int - Porta de Conexão.
+     * @Usage Used to set the connection port.
+     * @param port int - Connection port.
      */
     public void setPort(int port) {
         this.port = port;
     }
 
     /**
-     * @Usage Utilizado para pegar o Usuário de Conexão.
-     * @return String - Retorna o Usuário de Conexão.
+     * @Usage Used to get the connection User.
+     * @return String - Returns the connection User.
      */
     public String getUser() {
         return user;
     }
 
     /**
-     * @Usage Utilizado para definir o Usuário de Conexão.
-     * @param user String - Usuário de Conexão.
+     * @Usage Used to set the connection User.
+     * @param user String - connection User.
      */
     public void setUser(String user) {
         this.user = user;
     }
 
     /**
-     * @Usage Utilizado para pegar a Senha de Conexão.
-     * @return String - Senha de Conexão.
+     * @Usage Used to get the connection password.
+     * @return String - Connection password.
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * @Usage Utilizado para definir a Senha de Conexão.
-     * @param password String - Senha de Conexão.
+     * @Usage Used to set the connection password.
+     * @param password String - Connection password.
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * @Usage Utilizado para pegar o Número de Conexões disponíveis.
-     * @return int - Número de Conexões disponíveis.
+     * @Usage Used to get the number of available connections.
+     * @return int - Number of available connections.
      */
     public int getConnections() {
         return connections;
     }
 
     /**
-     * @Usage Utilizado para definir o Número de Conexões disponíveis.
-     * @param connections int - Número de Conexões disponíveis.
+     * @Usage Used to set the number of available connections.
+     * @param connections int - Number of available connections.
      */
     public void setConnections(int connections) {
         this.connections = connections;

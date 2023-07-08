@@ -4,15 +4,15 @@ import java.util.Optional;
 
 /**
  * @author Felipe Ros
- * @Usage Representa a Execução de um Comando do Redis.
+ * @Usage Represents the execution of a Redis Command.
  * @since 2.0
  * @version 1.0
  */
 public interface Execute<T> {
 
     /**
-     * @Usage Utilizado para pegar o Valor do comando Executado!
-     * @return Optional Genérico - Retorna o Valor do comando Executado.
+     * @Usage Used to get the value of the Executed command.
+     * @return Optional Generic - Returns the value of the Executed command.
      */
     Optional<T> execute();
 }
