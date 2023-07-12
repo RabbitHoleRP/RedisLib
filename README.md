@@ -10,19 +10,19 @@ It was created to facilitate the development of applications that use **Redis**
 
 >### Topics
 >
->> [Referências](#referências)
+>> [References](#references)
 >
->> [Uso/Exemplos](#usoexemplos)
+>> [Use/Examples](#useexamples)
 >
->> [Funcionalidades](#funcionalidades)
+>> [Functionalities](#functionalities)
 >
->> [Instalação](#instalação)
+>> [Installation](#installation)
 >
->> [Desenvolvedores](#desenvolvedores)
+>> [Developers](#developers)
 >
->> [Contribuidores](#contribuidores)
+>> [Contributors](#contributors)
 >
->> [Licença](#licença)
+>> [License](#license)
 
 ---
 
