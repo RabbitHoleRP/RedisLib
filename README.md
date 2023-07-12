@@ -94,6 +94,12 @@ public class Main {
 
 ### Functionalities
 
+<div align="center">
+
+    "Work in progress"
+    
+</div>
+
 ---
 
 ### Installation
@@ -177,3 +183,9 @@ implementation("br.com.rabbithole:RedisLib:0.0.0-SNAPSHOT")
 <p align="center">Felipe Ros Segundo Simão OS 2023 - RedisLib</p>
 
 ---
+
+<div align="center">
+
+    2.0.0
+    
+</div> 
