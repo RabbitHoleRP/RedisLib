@@ -53,30 +53,30 @@ import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
-        //Inicia a Conexão com o Redis passando os parâmetros de conexão 
-        //RedisConfig(IP, Porta, Usuário, Senha, Número de Conexões)
+        //Starts a connection with Redis, passing the connection parameters
+        //RedisConfig(ip, port, user, password, numberOfConnections)
         RedisLib.init(new RedisConfig("localhost", 6379, "user", "password", 100));
 
-        //Uma Get Query simples.
+        //A simple Get Query
         Query<Get> getQuery = new Get.Builder()
                 .setKey("Foo")
                 .build();
 
-        //Execução da Query após a construção.
+        //Query execution after construction
         Optional<String> resultOfGetQuery = getQuery.getCommand().execute();
 
-        //Uma Get Query com execução na construção.
+        //A Get Query with execution in the construction
         Optional<String> getQueryWithExecute = new Get.Builder()
                 .setKey("Foo")
                 .execute();
 
-        //Uma Set Query simples.
+        //A simple Set Query
         Query<Set> setQuery = new Set.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
                 .build();
 
-        //Uma Set Query com Opções.
+        //A Set Query with options
         Query<Set> setQueryWithOptions = new Set.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
