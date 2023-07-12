@@ -8,6 +8,8 @@ It was created to facilitate the development of applications that use **Redis**
 
 </div>
 
+---
+
 >### Topics
 >
 >> [References](#references)
