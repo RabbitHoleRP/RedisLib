@@ -2,31 +2,33 @@
 
 <div align="center">
 
-**RedisLib** é uma biblioteca para o [Redis](https://redis.io/) que, 
-mesmo sendo leve e simples de usar, se mostra poderosa e eficiente. 
-Foi criada para facilitar o desenvolvimento de aplicações que utilizam o **Redis**.
+**RedisLib** is a library for [Redis](https://redis.io/) which,
+even though it is light and simple to use, proves itself to be powerful and efficient.
+It was created to facilitate the development of applications that use **Redis**
 
 </div>
 
->### Tópicos
+---
+
+>### Topics
 >
->> [Referências](#referências)
+>> [References](#references)
 >
->> [Uso/Exemplos](#usoexemplos)
+>> [Use/Examples](#useexamples)
 >
->> [Funcionalidades](#funcionalidades)
+>> [Functionalities](#functionalities)
 >
->> [Instalação](#instalação)
+>> [Installation](#installation)
 >
->> [Desenvolvedores](#desenvolvedores)
+>> [Developers](#developers)
 >
->> [Contribuidores](#contribuidores)
+>> [Contributors](#contributors)
 >
->> [Licença](#licença)
+>> [License](#license)
 
 ---
 
-## Referências
+### References
 
 <div align="center">
 
@@ -39,7 +41,7 @@ Foi criada para facilitar o desenvolvimento de aplicações que utilizam o **Red
 
 ---
 
-## Uso/Exemplos
+### Use/Examples
 
 ```java
 import br.com.rabbithole.RedisLib;
@@ -53,30 +55,30 @@ import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
-        //Inicia a Conexão com o Redis passando os parâmetros de conexão 
-        //RedisConfig(IP, Porta, Usuário, Senha, Número de Conexões)
+        //Starts a connection with Redis, passing the connection parameters
+        //RedisConfig(ip, port, user, password, numberOfConnections)
         RedisLib.init(new RedisConfig("localhost", 6379, "user", "password", 100));
 
-        //Uma Get Query simples.
+        //A simple Get Query
         Query<Get> getQuery = new Get.Builder()
                 .setKey("Foo")
                 .build();
 
-        //Execução da Query após a construção.
+        //Query execution after construction
         Optional<String> resultOfGetQuery = getQuery.getCommand().execute();
 
-        //Uma Get Query com execução na construção.
+        //A Get Query with execution in the construction
         Optional<String> getQueryWithExecute = new Get.Builder()
                 .setKey("Foo")
                 .execute();
 
-        //Uma Set Query simples.
+        //A simple Set Query
         Query<Set> setQuery = new Set.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
                 .build();
 
-        //Uma Set Query com Opções.
+        //A Set Query with options
         Query<Set> setQueryWithOptions = new Set.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
@@ -92,13 +94,19 @@ public class Main {
 
 ---
 
-## Funcionalidades
+### Functionalities
+
+<div align="center">
+
+    "Work in progress"
+    
+</div>
 
 ---
 
-## Instalação
+### Installation
 
-> 1. Adicione o repositório ao seu projeto.
+> 1. Add the repo to your project
 
 **Maven:**
 
@@ -128,7 +136,7 @@ maven {
 
 ---
 
-> 2. Adicione a dependência.
+> 2. Add the dependency
 
 **Maven**:
 
@@ -154,22 +162,32 @@ implementation("br.com.rabbithole:RedisLib:0.0.0-SNAPSHOT")
 
 ---
 
-> ## Desenvolvedores
+> ### Developers
 >
 >> [Felipe Ros Segundo Simão](https://github.com/FelipeRos19)
 
-> ## Contribuidores
+> ### Contributors
 > 
 >> [Gabriel Monção Fekete](https://github.com/gabrielfeket)
 > 
 >> [Murilo Gotardo Pommerening](https://github.com/Murilo-Gotardo)
+>
+>> [Artur Chiarello Pozzo](https://github.com/Pozzoo)
 
 ---
 
-## Licença
+### License
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ---
 
 <p align="center">Felipe Ros Segundo Simão OS 2023 - RedisLib</p>
+
+---
+
+<div align="center">
+
+    2.0.0
+    
+</div> 
