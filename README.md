@@ -56,15 +56,15 @@ import java.util.Optional;
 public class Main {
     public static void main(String[] args) {
         //Starts a connection with Redis, passing the connection parameters
-        //RedisConfig(ip, port, user, password, numberOfConnections)
-        RedisLib.init(new RedisConfig("localhost", 6379, "user", "password", 100));
+        //RedisConfig(prefix, ip, port, user, password, number Of Connections)
+        RedisLib.init(new RedisConfig("prefix", "localhost", 6379, "user", "password", 100));
 
         //A simple Get Query
         Query<Get> getQuery = new Get.Builder()
                 .setKey("Foo")
                 .build();
 
-        //Query execution after construction
+        //A Get Query execution after construction
         Optional<String> resultOfGetQuery = getQuery.getCommand().execute();
 
         //A Get Query with execution in the construction
@@ -77,17 +77,15 @@ public class Main {
                 .setKey("Foo")
                 .setValue("Bar")
                 .build();
-
-        //A Set Query with options
-        Query<Set> setQueryWithOptions = new Set.Builder()
+        
+        //A Set Query execution after construction
+        Optional<Boolean> resultOfSetQuery = setQuery.getCommand().execute();
+        
+        //A Set Query with execution in the construction
+        Optional<Boolean> setQueryWithExecute = new Set.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
-                .setOptions(new SetOptions.Builder()
-                        .setExpire(100)
-                        .setIfNotExists()
-                        .setIfExists()
-                        .setGet()
-                ).build();
+                .build();
     }
 }
 ```
