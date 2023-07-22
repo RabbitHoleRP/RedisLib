@@ -18,7 +18,7 @@ public class SetNx implements Command, Write<String>, CommandOptions<SetOptions>
 
     @Override
     public String commandName() {
-        return "setXx";
+        return "setNx";
     }
 
     @Override
@@ -36,6 +36,7 @@ public class SetNx implements Command, Write<String>, CommandOptions<SetOptions>
         return this.options;
     }
 
+    //TODO: REFATORAR ESTE COMANDO REMOVENDO OPTIONS!
     @Override
     public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
