@@ -56,8 +56,8 @@ import java.util.Optional;
 public class Main {
     public static void main(String[] args) {
         //Starts a connection with Redis, passing the connection parameters
-        //RedisConfig(prefix, ip, port, user, password, number Of Connections)
-        RedisLib.init(new RedisConfig("prefix", "localhost", 6379, "user", "password", 100));
+        //RedisConfig(prefix, debug, ip, port, user, password, number Of Connections)
+        RedisLib.init(new RedisConfig("prefix", false, "localhost", 6379, "user", "password", 100));
 
         //A simple Get Query
         Query<Get> getQuery = new Get.Builder()
