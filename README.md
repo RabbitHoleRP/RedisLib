@@ -56,15 +56,15 @@ import java.util.Optional;
 public class Main {
     public static void main(String[] args) {
         //Starts a connection with Redis, passing the connection parameters
-        //RedisConfig(ip, port, user, password, numberOfConnections)
-        RedisLib.init(new RedisConfig("localhost", 6379, "user", "password", 100));
+        //RedisConfig(prefix, debug, ip, port, user, password, number Of Connections)
+        RedisLib.init(new RedisConfig("prefix", false, "localhost", 6379, "user", "password", 100));
 
         //A simple Get Query
         Query<Get> getQuery = new Get.Builder()
                 .setKey("Foo")
                 .build();
 
-        //Query execution after construction
+        //A Get Query execution after construction
         Optional<String> resultOfGetQuery = getQuery.getCommand().execute();
 
         //A Get Query with execution in the construction
@@ -77,17 +77,15 @@ public class Main {
                 .setKey("Foo")
                 .setValue("Bar")
                 .build();
-
-        //A Set Query with options
-        Query<Set> setQueryWithOptions = new Set.Builder()
+        
+        //A Set Query execution after construction
+        Optional<Boolean> resultOfSetQuery = setQuery.getCommand().execute();
+        
+        //A Set Query with execution in the construction
+        Optional<Boolean> setQueryWithExecute = new Set.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
-                .setOptions(new SetOptions.Builder()
-                        .setExpire(100)
-                        .setIfNotExists()
-                        .setIfExists()
-                        .setGet()
-                ).build();
+                .build();
     }
 }
 ```
@@ -144,20 +142,20 @@ maven {
 <dependency>
   <groupId>br.com.rabbithole</groupId>
   <artifactId>RedisLib</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <version>2.2.0-SNAPSHOT</version>
 </dependency>
 ```
 
 **Gradle (Groovy):**
 
 ```groovy
-implementation "br.com.rabbithole:RedisLib:2.0.0-SNAPSHOT"
+implementation "br.com.rabbithole:RedisLib:2.2.0-SNAPSHOT"
 ```
 
 **Gradle (Kotlin):**
 
 ```kotlin
-implementation("br.com.rabbithole:RedisLib:0.0.0-SNAPSHOT")
+implementation("br.com.rabbithole:RedisLib:2.2.0-SNAPSHOT")
 ```
 
 ---
@@ -188,6 +186,6 @@ implementation("br.com.rabbithole:RedisLib:0.0.0-SNAPSHOT")
 
 <div align="center">
 
-    2.0.0
+    2.2.0
     
 </div> 
