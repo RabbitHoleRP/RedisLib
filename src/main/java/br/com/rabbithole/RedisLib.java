@@ -24,32 +24,6 @@ public class RedisLib {
         logger.info("RedisLib has initialized!");
     }
 
-    public static void main(String[] args) {
-        RedisLib.init(new RedisConfig("teste", true, "199.204.160.178", 6379, "default", "teste123", 100));
-
-        var keys = new Keys.Builder().setKey("*teste*").execute();
-        var persist = new Persist.Builder().setKey("testeString").execute();
-        var randomKey = new RandomKey.Builder().execute();
-        //var rename = new Rename.Builder().setKey("rename").setValue("newName").execute();
-        //var renameNx = new RenameNx.Builder().setKey("testeRename").setValue("newTesteRename").execute();
-        var ttl = new TTL.Builder().setKey("testeString").execute();
-        var type = new Type.Builder().setKey("teste").execute();
-
-        /*
-        keys.ifPresent(strings -> {
-            for (String key : strings) {
-                System.out.println(key);
-            }
-        });
-        persist.ifPresent(System.out::println);
-        randomKey.ifPresent(System.out::println);
-        rename.ifPresent(System.out::println);
-        ttl.ifPresent(System.out::println);
-         */
-
-        type.ifPresent(System.out::println);
-    }
-
     public static JedisPool getJedis() {
         return redisConfiguration.getJedis();
     }
