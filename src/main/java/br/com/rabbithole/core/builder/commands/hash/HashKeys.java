@@ -29,6 +29,7 @@ public class HashKeys implements Command, Read, Execute<Set<String>> {
         return this.key;
     }
 
+    //TODO: REMOVER ESTE TERNÁRIO EM TODOS OS COMANDOS Hash!
     @Override
     public Optional<Set<String>> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {

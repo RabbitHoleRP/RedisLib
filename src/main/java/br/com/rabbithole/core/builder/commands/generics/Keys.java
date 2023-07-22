@@ -1,21 +1,27 @@
-package br.com.rabbithole.core.builder.commands.hash;
+package br.com.rabbithole.core.builder.commands.generics;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
-import br.com.rabbithole.core.builder.base.actions.HashRead;
+import br.com.rabbithole.core.builder.base.actions.Read;
 import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
+import java.util.Set;
 
-public class HashDel implements Command, HashRead, Execute<Boolean> {
+/**
+ * @author Felipe Ros
+ * @Usage Retorna todas as chaves que correspondem ao padrão.
+ * @since 2.0
+ * @version 1.0
+ */
+public class Keys implements Command, Read, Execute<Set<String>> {
     private final String key;
-    private final String field;
 
     @Override
     public String commandName() {
-        return "hashDel";
+        return "keys";
     }
 
     @Override
@@ -24,52 +30,39 @@ public class HashDel implements Command, HashRead, Execute<Boolean> {
     }
 
     @Override
-    public String getField() {
-        return this.field;
-    }
-
-    @Override
-    public Optional<Boolean> execute() {
+    public Optional<Set<String>> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
+            Set<String> keys = jedis.keys(getKey());
             if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
-            return Optional.of(jedis.hdel(getKey(), getField()) != 0);
+            return Optional.of(keys);
         } catch (Exception exception) {
             RedisLib.getLogger().error("Query: " + commandName(), exception);
-            return Optional.of(false);
+            return Optional.empty();
         }
     }
 
-    //Construtor
-    private HashDel(Builder builder) {
+    private Keys(Builder builder) {
         this.key = builder.key;
-        this.field = builder.field;
     }
 
-    //Query
-    private Query<HashDel> query() {
+    private Query<Keys> query() {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<Boolean> {
+    public static class Builder implements Execute<Set<String>> {
         private String key;
-        private String field;
 
         public Builder setKey(String key) {
             this.key = key;
             return this;
         }
 
-        public Builder setField(String field) {
-            this.field = field;
-            return this;
-        }
-
-        public Query<HashDel> build() {
-            return new HashDel(this).query();
+        public Query<Keys> build() {
+            return new Keys(this).query();
         }
 
         @Override
-        public Optional<Boolean> execute() {
+        public Optional<Set<String>> execute() {
             return build().getCommand().execute();
         }
     }

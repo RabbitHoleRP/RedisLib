@@ -1,4 +1,4 @@
-package br.com.rabbithole.core.builder.commands.generics.sets;
+package br.com.rabbithole.core.builder.commands.string.sets;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
@@ -11,14 +11,14 @@ import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class SetNx implements Command, Write<String>, CommandOptions<SetOptions>, Execute<Boolean> {
+public class GetSet implements Command, Write<String>, CommandOptions<SetOptions>, Execute<String> {
     private final String key;
     private final String value;
     private final SetOptions options;
 
     @Override
     public String commandName() {
-        return "setNx";
+        return "getSet";
     }
 
     @Override
@@ -36,37 +36,36 @@ public class SetNx implements Command, Write<String>, CommandOptions<SetOptions>
         return this.options;
     }
 
-    //TODO: REFATORAR ESTE COMANDO REMOVENDO OPTIONS!
     @Override
-    public Optional<Boolean> execute() {
+    public Optional<String> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
             if (getOptions() != null) {
                 int expireTime = getOptions().getExpire();
                 if (expireTime != 0) {
-                    boolean resultOfQuery = jedis.setnx(getKey(), getValue()) != 0;
-                    if (resultOfQuery) return Optional.of(jedis.expire(getKey(), expireTime) != 0);
-                    if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
-                    return Optional.of(false);
+                    String resultOfQuery = jedis.getSet(getKey(), getValue());
+                    jedis.expire(getKey(), expireTime);
+                    if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
+                    return Optional.of(resultOfQuery);
                 }
             }
-            return Optional.of(jedis.setnx(getKey(), getValue()) != 0);
+            return Optional.of(jedis.getSet(getKey(), getValue()));
         } catch (Exception exception) {
             RedisLib.getLogger().error("Query: " + commandName(), exception);
-            return Optional.of(false);
+            return Optional.empty();
         }
     }
 
-    private SetNx(Builder builder) {
+    private GetSet(Builder builder) {
         this.key = builder.key;
         this.value = builder.value;
         this.options = builder.options;
     }
 
-    private Query<SetNx> query() {
+    private Query<GetSet> query() {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<Boolean> {
+    public static class Builder implements Execute<String> {
         private String key;
         private String value;
         private SetOptions options;
@@ -86,12 +85,12 @@ public class SetNx implements Command, Write<String>, CommandOptions<SetOptions>
             return this;
         }
 
-        public Query<SetNx> build() {
-            return new SetNx(this).query();
+        public Query<GetSet> build() {
+            return new GetSet(this).query();
         }
 
         @Override
-        public Optional<Boolean> execute() {
+        public Optional<String> execute() {
             return build().getCommand().execute();
         }
     }

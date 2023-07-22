@@ -1,28 +1,26 @@
-package br.com.rabbithole.core.builder.commands.generics.sets;
+package br.com.rabbithole.core.builder.commands.generics;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
-import br.com.rabbithole.core.builder.base.actions.Write;
+import br.com.rabbithole.core.builder.base.actions.Read;
 import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
 /**
  * @author Felipe Ros
- * @Usage Represents the command Set on Redis database.
+ * @Usage Remove o tempo limite de existência de uma Chave.
  * @since 2.0
  * @version 1.0
- *
  */
-public class Set implements Command, Write<String>, Execute<Boolean> {
+public class Persist implements Command, Read, Execute<Boolean> {
     private final String key;
-    private final String value;
 
     @Override
     public String commandName() {
-        return "set";
+        return "persist";
     }
 
     @Override
@@ -31,46 +29,34 @@ public class Set implements Command, Write<String>, Execute<Boolean> {
     }
 
     @Override
-    public String getValue() {
-        return this.value;
-    }
-
-    @Override
     public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
-            if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
-            return Optional.of(jedis.set(getKey(), getValue()).equals("OK"));
+            if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
+            return (jedis.persist(getKey()) == 0 ? Optional.of(false) : Optional.of(true));
         } catch (Exception exception) {
             RedisLib.getLogger().error("Query: " + commandName(), exception);
-            return Optional.of(false);
+            return Optional.empty();
         }
     }
 
-    private Set(Builder builder) {
+    private Persist(Builder builder) {
         this.key = builder.key;
-        this.value = builder.value;
     }
 
-    private Query<Set> query() {
+    private Query<Persist> query() {
         return new Query<>(this);
     }
 
     public static class Builder implements Execute<Boolean> {
         private String key;
-        private String value;
 
         public Builder setKey(String key) {
             this.key = key;
             return this;
         }
 
-        public Builder setValue(String value) {
-            this.value = value;
-            return this;
-        }
-
-        public Query<Set> build() {
-            return new Set(this).query();
+        public Query<Persist> build() {
+            return new Persist(this).query();
         }
 
         @Override

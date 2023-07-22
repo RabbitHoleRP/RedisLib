@@ -4,57 +4,46 @@ import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
-import br.com.rabbithole.core.builder.base.actions.Read;
 import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class Del implements Command, Read, Execute<Boolean> {
-    private final String key;
-
+/**
+ * @author Felipe Ros
+ * @Usage Retorna uma Chave aleatória.
+ * @since 2.0
+ * @version 1.0
+ */
+public class RandomKey implements Command, Execute<String> {
     @Override
     public String commandName() {
-        return "del";
+        return "randomKey";
     }
 
     @Override
-    public String getKey() {
-        return this.key;
-    }
-
-    @Override
-    public Optional<Boolean> execute() {
+    public Optional<String> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
             if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
-            return Optional.of(jedis.del(getKey()) != 0);
+            return Optional.of(jedis.randomKey());
         } catch (Exception exception) {
             RedisLib.getLogger().error("Query: " + commandName(), exception);
-            return Optional.of(false);
+            return Optional.empty();
         }
     }
 
-    private Del(Builder builder) {
-        this.key = builder.key;
-    }
+    private RandomKey(Builder builder) {}
 
-    private Query<Del> query() {
+    private Query<RandomKey> query() {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<Boolean> {
-        private String key;
-
-        public Builder setKey(String key) {
-            this.key = key;
-            return this;
-        }
-
-        public Query<Del> build() {
-            return new Del(this).query();
+    public static class Builder implements Execute<String> {
+        public Query<RandomKey> build() {
+            return new RandomKey(this).query();
         }
 
         @Override
-        public Optional<Boolean> execute() {
+        public Optional<String> execute() {
             return build().getCommand().execute();
         }
     }

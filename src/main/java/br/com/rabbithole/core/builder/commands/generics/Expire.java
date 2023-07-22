@@ -31,7 +31,7 @@ public class Expire implements Command, Write<Integer>, Execute<Boolean> {
     @Override
     public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
-            if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
+            if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
             return Optional.of(jedis.expire(getKey(), getValue()) != 0);
         } catch (Exception exception) {
             RedisLib.getLogger().error("Query: " + commandName(), exception);
