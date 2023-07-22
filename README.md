@@ -142,20 +142,20 @@ maven {
 <dependency>
   <groupId>br.com.rabbithole</groupId>
   <artifactId>RedisLib</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <version>2.2.0-SNAPSHOT</version>
 </dependency>
 ```
 
 **Gradle (Groovy):**
 
 ```groovy
-implementation "br.com.rabbithole:RedisLib:2.0.0-SNAPSHOT"
+implementation "br.com.rabbithole:RedisLib:2.2.0-SNAPSHOT"
 ```
 
 **Gradle (Kotlin):**
 
 ```kotlin
-implementation("br.com.rabbithole:RedisLib:0.0.0-SNAPSHOT")
+implementation("br.com.rabbithole:RedisLib:2.2.0-SNAPSHOT")
 ```
 
 ---
@@ -186,6 +186,6 @@ implementation("br.com.rabbithole:RedisLib:0.0.0-SNAPSHOT")
 
 <div align="center">
 
-    2.0.0
+    2.2.0
     
 </div> 
