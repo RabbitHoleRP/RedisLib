@@ -171,6 +171,8 @@ implementation("br.com.rabbithole:RedisLib:2.2.0-SNAPSHOT")
 >> [Murilo Gotardo Pommerening](https://github.com/Murilo-Gotardo)
 >
 >> [Artur Chiarello Pozzo](https://github.com/Pozzoo)
+>
+>> [gump](https://gump.dev)
 
 ---
 
