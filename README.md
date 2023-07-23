@@ -47,9 +47,8 @@ It was created to facilitate the development of applications that use **Redis**
 import br.com.rabbithole.RedisLibTest;
 import br.com.rabbithole.configurations.RedisConfig;
 import br.com.rabbithole.core.builder.Query;
-import br.com.rabbithole.core.builder.commands.generics.Get;
-import br.com.rabbithole.core.builder.commands.generics.sets.Set;
-import br.com.rabbithole.core.builder.options.SetOptions;
+import br.com.rabbithole.core.builder.commands.string.Get;
+import br.com.rabbithole.core.builder.commands.string.Sets;
 
 import java.util.Optional;
 
@@ -73,16 +72,16 @@ public class Main {
                 .execute();
 
         //A simple Set Query
-        Query<Set> setQuery = new Set.Builder()
+        Query<Sets<S>> setQuery = new Sets.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
                 .build();
-        
+
         //A Set Query execution after construction
         Optional<Boolean> resultOfSetQuery = setQuery.getCommand().execute();
-        
+
         //A Set Query with execution in the construction
-        Optional<Boolean> setQueryWithExecute = new Set.Builder()
+        Optional<Boolean> setQueryWithExecute = new Sets.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
                 .build();
@@ -142,20 +141,20 @@ maven {
 <dependency>
   <groupId>br.com.rabbithole</groupId>
   <artifactId>RedisLib</artifactId>
-  <version>2.2.0-SNAPSHOT</version>
+  <version>2.3.0-SNAPSHOT</version>
 </dependency>
 ```
 
 **Gradle (Groovy):**
 
 ```groovy
-implementation "br.com.rabbithole:RedisLib:2.2.0-SNAPSHOT"
+implementation "br.com.rabbithole:RedisLib:2.3.0-SNAPSHOT"
 ```
 
 **Gradle (Kotlin):**
 
 ```kotlin
-implementation("br.com.rabbithole:RedisLib:2.2.0-SNAPSHOT")
+implementation("br.com.rabbithole:RedisLib:2.3.0-SNAPSHOT")
 ```
 
 ---
@@ -188,6 +187,6 @@ implementation("br.com.rabbithole:RedisLib:2.2.0-SNAPSHOT")
 
 <div align="center">
 
-    2.2.0
+    2.3.0
     
 </div> 

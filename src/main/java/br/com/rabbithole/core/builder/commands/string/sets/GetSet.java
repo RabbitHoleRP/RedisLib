@@ -1,4 +1,4 @@
-package br.com.rabbithole.core.builder.commands.generics.sets;
+package br.com.rabbithole.core.builder.commands.string.sets;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
@@ -44,7 +44,7 @@ public class GetSet implements Command, Write<String>, CommandOptions<SetOptions
           String resultOfQuery = jedis.getSet(getKey(), getValue());
           jedis.expire(getKey(), expireTime);
           if (RedisLib.inDebug())
-            RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
+            RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
           return Optional.of(resultOfQuery);
         }
       }

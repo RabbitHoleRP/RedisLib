@@ -25,7 +25,7 @@ public class Del implements Command, Read, Execute<Boolean> {
   public Optional<Boolean> execute() {
     try (Jedis jedis = RedisLib.getJedis().getResource()) {
       if (RedisLib.inDebug())
-        RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
+        RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
       return Optional.of(jedis.del(getKey()) != 0);
     } catch (Exception exception) {
       RedisLib.getLogger().error("Query: " + commandName(), exception);

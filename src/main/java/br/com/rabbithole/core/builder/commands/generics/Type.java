@@ -8,12 +8,17 @@ import br.com.rabbithole.core.builder.base.actions.Read;
 import java.util.Optional;
 import redis.clients.jedis.Jedis;
 
-public class Get implements Command, Read, Execute<String> {
+/**
+ * @author Felipe Ros @Usage Verifica o tipo da Chave.
+ * @since 2.0
+ * @version 1.0
+ */
+public class Type implements Command, Read, Execute<String> {
   private final String key;
 
   @Override
   public String commandName() {
-    return "get";
+    return "type";
   }
 
   @Override
@@ -24,22 +29,20 @@ public class Get implements Command, Read, Execute<String> {
   @Override
   public Optional<String> execute() {
     try (Jedis jedis = RedisLib.getJedis().getResource()) {
-      if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + ".");
-      String result = jedis.get(getKey());
       if (RedisLib.inDebug())
-        RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
-      return (!result.equals("nil") ? Optional.of(result) : Optional.empty());
+        RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
+      return Optional.of(jedis.type(getKey()));
     } catch (Exception exception) {
       RedisLib.getLogger().error("Query: " + commandName(), exception);
       return Optional.empty();
     }
   }
 
-  private Get(Builder builder) {
+  private Type(Builder builder) {
     this.key = builder.key;
   }
 
-  private Query<Get> query() {
+  private Query<Type> query() {
     return new Query<>(this);
   }
 
@@ -51,8 +54,8 @@ public class Get implements Command, Read, Execute<String> {
       return this;
     }
 
-    public Query<Get> build() {
-      return new Get(this).query();
+    public Query<Type> build() {
+      return new Type(this).query();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package br.com.rabbithole.core.builder.commands.generics.sets;
+package br.com.rabbithole.core.builder.commands.string.sets;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
@@ -8,18 +8,14 @@ import br.com.rabbithole.core.builder.base.actions.Write;
 import java.util.Optional;
 import redis.clients.jedis.Jedis;
 
-/**
- * @author Felipe Ros @Usage Represents the command Set on Redis database.
- * @since 2.0
- * @version 1.0
- */
-public class Set implements Command, Write<String>, Execute<Boolean> {
+public class SetEx implements Command, Write<String>, Execute<Boolean> {
   private final String key;
   private final String value;
+  private final int expireTime;
 
   @Override
   public String commandName() {
-    return "set";
+    return "setEx";
   }
 
   @Override
@@ -32,30 +28,36 @@ public class Set implements Command, Write<String>, Execute<Boolean> {
     return this.value;
   }
 
+  public int getExpireTime() {
+    return this.expireTime;
+  }
+
   @Override
   public Optional<Boolean> execute() {
     try (Jedis jedis = RedisLib.getJedis().getResource()) {
       if (RedisLib.inDebug())
-        RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
-      return Optional.of(jedis.set(getKey(), getValue()).equals("OK"));
+        RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
+      return Optional.of(jedis.setex(getKey(), getExpireTime(), getValue()).equals("OK"));
     } catch (Exception exception) {
       RedisLib.getLogger().error("Query: " + commandName(), exception);
       return Optional.of(false);
     }
   }
 
-  private Set(Builder builder) {
+  private SetEx(Builder builder) {
     this.key = builder.key;
     this.value = builder.value;
+    this.expireTime = builder.expireTime;
   }
 
-  private Query<Set> query() {
+  private Query<SetEx> query() {
     return new Query<>(this);
   }
 
   public static class Builder implements Execute<Boolean> {
     private String key;
     private String value;
+    private int expireTime;
 
     public Builder setKey(String key) {
       this.key = key;
@@ -67,8 +69,13 @@ public class Set implements Command, Write<String>, Execute<Boolean> {
       return this;
     }
 
-    public Query<Set> build() {
-      return new Set(this).query();
+    public Builder setExpire(int time) {
+      this.expireTime = time;
+      return this;
+    }
+
+    public Query<SetEx> build() {
+      return new SetEx(this).query();
     }
 
     @Override

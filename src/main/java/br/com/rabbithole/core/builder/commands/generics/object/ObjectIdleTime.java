@@ -1,20 +1,24 @@
-package br.com.rabbithole.core.builder.commands.hash;
+package br.com.rabbithole.core.builder.commands.generics.object;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
-import br.com.rabbithole.core.builder.base.actions.HashRead;
+import br.com.rabbithole.core.builder.base.actions.Read;
 import java.util.Optional;
 import redis.clients.jedis.Jedis;
 
-public class HashDel implements Command, HashRead, Execute<Boolean> {
+/**
+ * @author Felipe Ros @Usage Retorna o tempo em segundos desde o último acesso ao objeto
+ * @since 2.0
+ * @version 1.0
+ */
+public class ObjectIdleTime implements Command, Read, Execute<Long> {
   private final String key;
-  private final String field;
 
   @Override
   public String commandName() {
-    return "hashDel";
+    return "objectIdleTime";
   }
 
   @Override
@@ -23,53 +27,39 @@ public class HashDel implements Command, HashRead, Execute<Boolean> {
   }
 
   @Override
-  public String getField() {
-    return this.field;
-  }
-
-  @Override
-  public Optional<Boolean> execute() {
+  public Optional<Long> execute() {
     try (Jedis jedis = RedisLib.getJedis().getResource()) {
       if (RedisLib.inDebug())
         RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
-      return Optional.of(jedis.hdel(getKey(), getField()) != 0);
+      return Optional.of(jedis.objectIdletime(getKey()));
     } catch (Exception exception) {
       RedisLib.getLogger().error("Query: " + commandName(), exception);
-      return Optional.of(false);
+      return Optional.empty();
     }
   }
 
-  // Construtor
-  private HashDel(Builder builder) {
+  private ObjectIdleTime(Builder builder) {
     this.key = builder.key;
-    this.field = builder.field;
   }
 
-  // Query
-  private Query<HashDel> query() {
+  private Query<ObjectIdleTime> query() {
     return new Query<>(this);
   }
 
-  public static class Builder implements Execute<Boolean> {
+  public static class Builder implements Execute<Long> {
     private String key;
-    private String field;
 
     public Builder setKey(String key) {
       this.key = key;
       return this;
     }
 
-    public Builder setField(String field) {
-      this.field = field;
-      return this;
-    }
-
-    public Query<HashDel> build() {
-      return new HashDel(this).query();
+    public Query<ObjectIdleTime> build() {
+      return new ObjectIdleTime(this).query();
     }
 
     @Override
-    public Optional<Boolean> execute() {
+    public Optional<Long> execute() {
       return build().getCommand().execute();
     }
   }

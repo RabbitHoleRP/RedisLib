@@ -60,6 +60,7 @@ public class HashKeys implements Command, Read, Execute<Set<String>> {
       return new HashKeys(this).query();
     }
 
+    // TODO: REMOVER ESTE TERNÁRIO EM TODOS OS COMANDOS Hash!
     @Override
     public Optional<Set<String>> execute() {
       return build().getCommand().execute();

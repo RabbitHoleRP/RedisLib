@@ -2,6 +2,7 @@ package br.com.rabbithole.core.builder.options;
 
 import br.com.rabbithole.core.builder.base.options.Options;
 
+@Deprecated
 public class SetOptions implements Options {
   private final boolean ifExpire;
   private final int expire;

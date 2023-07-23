@@ -1,20 +1,25 @@
-package br.com.rabbithole.core.builder.commands.hash;
+package br.com.rabbithole.core.builder.commands.generics.time;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
-import br.com.rabbithole.core.builder.base.actions.HashRead;
+import br.com.rabbithole.core.builder.base.actions.Write;
 import java.util.Optional;
 import redis.clients.jedis.Jedis;
 
-public class HashDel implements Command, HashRead, Execute<Boolean> {
+/**
+ * @author Felipe Ros @Usage Define o tempo (em unix time) para uma chave ser deletada.
+ * @since 1.0
+ * @version 1.0
+ */
+public class ExpireAt implements Command, Write<Long>, Execute<Boolean> {
   private final String key;
-  private final String field;
+  private final Long value;
 
   @Override
   public String commandName() {
-    return "hashDel";
+    return "expireAt";
   }
 
   @Override
@@ -23,8 +28,8 @@ public class HashDel implements Command, HashRead, Execute<Boolean> {
   }
 
   @Override
-  public String getField() {
-    return this.field;
+  public Long getValue() {
+    return this.value;
   }
 
   @Override
@@ -32,40 +37,38 @@ public class HashDel implements Command, HashRead, Execute<Boolean> {
     try (Jedis jedis = RedisLib.getJedis().getResource()) {
       if (RedisLib.inDebug())
         RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
-      return Optional.of(jedis.hdel(getKey(), getField()) != 0);
+      return Optional.of(jedis.expireAt(getKey(), getValue()) != 0);
     } catch (Exception exception) {
       RedisLib.getLogger().error("Query: " + commandName(), exception);
       return Optional.of(false);
     }
   }
 
-  // Construtor
-  private HashDel(Builder builder) {
+  private ExpireAt(Builder builder) {
     this.key = builder.key;
-    this.field = builder.field;
+    this.value = builder.value;
   }
 
-  // Query
-  private Query<HashDel> query() {
+  private Query<ExpireAt> query() {
     return new Query<>(this);
   }
 
   public static class Builder implements Execute<Boolean> {
     private String key;
-    private String field;
+    private Long value;
 
     public Builder setKey(String key) {
       this.key = key;
       return this;
     }
 
-    public Builder setField(String field) {
-      this.field = field;
+    public Builder setValue(Long value) {
+      this.value = value;
       return this;
     }
 
-    public Query<HashDel> build() {
-      return new HashDel(this).query();
+    public Query<ExpireAt> build() {
+      return new ExpireAt(this).query();
     }
 
     @Override

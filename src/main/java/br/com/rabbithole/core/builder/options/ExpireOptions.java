@@ -3,6 +3,7 @@ package br.com.rabbithole.core.builder.options;
 import br.com.rabbithole.core.builder.base.options.Options;
 
 // TODO: CÓDIGO TEMPORÁRIO NOMES SERÃO ALTERADOS DPS
+@Deprecated
 public class ExpireOptions implements Options {
   private final boolean nx;
   private final boolean xx;

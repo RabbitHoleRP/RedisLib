@@ -1,4 +1,4 @@
-package br.com.rabbithole.core.builder.commands.generics.sets;
+package br.com.rabbithole.core.builder.commands.string;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
@@ -8,14 +8,18 @@ import br.com.rabbithole.core.builder.base.actions.Write;
 import java.util.Optional;
 import redis.clients.jedis.Jedis;
 
-public class SetEx implements Command, Write<String>, Execute<Boolean> {
+/**
+ * @author Felipe Ros @Usage Represents the command Set on Redis database.
+ * @since 2.0
+ * @version 1.0
+ */
+public class Sets<S> implements Command, Write<String>, Execute<Boolean> {
   private final String key;
   private final String value;
-  private final int expireTime;
 
   @Override
   public String commandName() {
-    return "setEx";
+    return "set";
   }
 
   @Override
@@ -28,36 +32,30 @@ public class SetEx implements Command, Write<String>, Execute<Boolean> {
     return this.value;
   }
 
-  public int getExpireTime() {
-    return this.expireTime;
-  }
-
   @Override
   public Optional<Boolean> execute() {
     try (Jedis jedis = RedisLib.getJedis().getResource()) {
       if (RedisLib.inDebug())
-        RedisLib.getLogger().info("Query: " + commandName() + "has executed!");
-      return Optional.of(jedis.setex(getKey(), getExpireTime(), getValue()).equals("OK"));
+        RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
+      return Optional.of(jedis.set(getKey(), getValue()).equals("OK"));
     } catch (Exception exception) {
       RedisLib.getLogger().error("Query: " + commandName(), exception);
       return Optional.of(false);
     }
   }
 
-  private SetEx(Builder builder) {
+  private Sets(Builder builder) {
     this.key = builder.key;
     this.value = builder.value;
-    this.expireTime = builder.expireTime;
   }
 
-  private Query<SetEx> query() {
+  private Query<Sets<S>> query() {
     return new Query<>(this);
   }
 
   public static class Builder implements Execute<Boolean> {
     private String key;
     private String value;
-    private int expireTime;
 
     public Builder setKey(String key) {
       this.key = key;
@@ -69,13 +67,8 @@ public class SetEx implements Command, Write<String>, Execute<Boolean> {
       return this;
     }
 
-    public Builder setExpire(int time) {
-      this.expireTime = time;
-      return this;
-    }
-
-    public Query<SetEx> build() {
-      return new SetEx(this).query();
+    public Query<Sets> build() {
+      return new Sets(this).query();
     }
 
     @Override
