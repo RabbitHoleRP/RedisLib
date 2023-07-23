@@ -1,4 +1,4 @@
-package br.com.rabbithole.core.builder.commands.generics;
+package br.com.rabbithole.core.builder.commands.generics.time;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
@@ -11,16 +11,16 @@ import java.util.Optional;
 
 /**
  * @author Felipe Ros
- * @Usage Retorna o tempo restante de uma Chave.
+ * @Usage Remove o tempo limite de existência de uma Chave.
  * @since 2.0
  * @version 1.0
  */
-public class TTL implements Command, Read, Execute<Long> {
+public class Persist implements Command, Read, Execute<Boolean> {
     private final String key;
 
     @Override
     public String commandName() {
-        return "ttl";
+        return "persist";
     }
 
     @Override
@@ -29,25 +29,25 @@ public class TTL implements Command, Read, Execute<Long> {
     }
 
     @Override
-    public Optional<Long> execute() {
+    public Optional<Boolean> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
             if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
-            return Optional.of(jedis.ttl(getKey()));
+            return (jedis.persist(getKey()) == 0 ? Optional.of(false) : Optional.of(true));
         } catch (Exception exception) {
             RedisLib.getLogger().error("Query: " + commandName(), exception);
             return Optional.empty();
         }
     }
 
-    private TTL(Builder builder) {
+    private Persist(Builder builder) {
         this.key = builder.key;
     }
 
-    private Query<TTL> query() {
+    private Query<Persist> query() {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<Long> {
+    public static class Builder implements Execute<Boolean> {
         private String key;
 
         public Builder setKey(String key) {
@@ -55,12 +55,12 @@ public class TTL implements Command, Read, Execute<Long> {
             return this;
         }
 
-        public Query<TTL> build() {
-            return new TTL(this).query();
+        public Query<Persist> build() {
+            return new Persist(this).query();
         }
 
         @Override
-        public Optional<Long> execute() {
+        public Optional<Boolean> execute() {
             return build().getCommand().execute();
         }
     }

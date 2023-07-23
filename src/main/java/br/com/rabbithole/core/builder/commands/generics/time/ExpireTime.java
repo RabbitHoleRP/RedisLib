@@ -1,21 +1,26 @@
-package br.com.rabbithole.core.builder.commands.generics;
+package br.com.rabbithole.core.builder.commands.generics.time;
 
 import br.com.rabbithole.RedisLib;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.base.Command;
 import br.com.rabbithole.core.builder.base.Execute;
-import br.com.rabbithole.core.builder.base.actions.Write;
+import br.com.rabbithole.core.builder.base.actions.Read;
 import redis.clients.jedis.Jedis;
 
 import java.util.Optional;
 
-public class Expire implements Command, Write<Integer>, Execute<Boolean> {
+/**
+ * @author Felipe Ros
+ * @Usage Retorna o tempo restante de uma Chave (em unix time).
+ * @since 2.0
+ * @version 1.0
+ */
+public class ExpireTime implements Command, Read, Execute<Long> {
     private final String key;
-    private final int value;
 
     @Override
     public String commandName() {
-        return "expire";
+        return "expireTime";
     }
 
     @Override
@@ -24,50 +29,38 @@ public class Expire implements Command, Write<Integer>, Execute<Boolean> {
     }
 
     @Override
-    public Integer getValue() {
-        return this.value;
-    }
-
-    @Override
-    public Optional<Boolean> execute() {
+    public Optional<Long> execute() {
         try (Jedis jedis = RedisLib.getJedis().getResource()) {
             if (RedisLib.inDebug()) RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
-            return Optional.of(jedis.expire(getKey(), getValue()) != 0);
+            return Optional.of(jedis.expireTime(getKey()));
         } catch (Exception exception) {
             RedisLib.getLogger().error("Query: " + commandName(), exception);
-            return Optional.of(false);
+            return Optional.empty();
         }
     }
 
-    private Expire(Builder builder) {
+    private ExpireTime(Builder builder) {
         this.key = builder.key;
-        this.value = builder.value;
     }
 
-    private Query<Expire> query() {
+    private Query<ExpireTime> query() {
         return new Query<>(this);
     }
 
-    public static class Builder implements Execute<Boolean> {
+    public static class Builder implements Execute<Long> {
         private String key;
-        private int value;
 
         public Builder setKey(String key) {
             this.key = key;
             return this;
         }
 
-        public Builder setValue(int value) {
-            this.value = value;
-            return this;
-        }
-
-        public Query<Expire> build() {
-            return new Expire(this).query();
+        public Query<ExpireTime> build() {
+            return new ExpireTime(this).query();
         }
 
         @Override
-        public Optional<Boolean> execute() {
+        public Optional<Long> execute() {
             return build().getCommand().execute();
         }
     }

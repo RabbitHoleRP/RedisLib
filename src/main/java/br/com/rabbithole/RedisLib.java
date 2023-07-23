@@ -3,6 +3,8 @@ package br.com.rabbithole;
 import br.com.rabbithole.configurations.RedisConfig;
 import br.com.rabbithole.configurations.RedisConfiguration;
 import br.com.rabbithole.core.builder.commands.generics.*;
+import br.com.rabbithole.core.builder.commands.generics.time.ExpireAt;
+import br.com.rabbithole.core.builder.commands.generics.time.ExpireTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.JedisPool;
@@ -22,6 +24,14 @@ public class RedisLib {
         logger = LoggerFactory.getLogger(redisConfig.getPrefix() + " (Redis)");
         redisConfiguration = new RedisConfiguration(redisConfig);
         logger.info("RedisLib has initialized!");
+    }
+
+    public static void main(String[] args) {
+        RedisLib.init(new RedisConfig("teste", true, "199.204.160.178", 6379, "default", "teste123", 100));
+
+        var expireTime = new ExpireTime.Builder().setKey("newName").execute();
+
+        expireTime.ifPresent(System.out::println);
     }
 
     public static JedisPool getJedis() {
