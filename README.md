@@ -44,7 +44,7 @@ It was created to facilitate the development of applications that use **Redis**
 ### Use/Examples
 
 ```java
-import br.com.rabbithole.RedisLib;
+import br.com.rabbithole.RedisLibTest;
 import br.com.rabbithole.configurations.RedisConfig;
 import br.com.rabbithole.core.builder.Query;
 import br.com.rabbithole.core.builder.commands.generics.Get;
@@ -171,6 +171,8 @@ implementation("br.com.rabbithole:RedisLib:2.2.0-SNAPSHOT")
 >> [Murilo Gotardo Pommerening](https://github.com/Murilo-Gotardo)
 >
 >> [Artur Chiarello Pozzo](https://github.com/Pozzoo)
+>
+>> [gump](https://gump.dev)
 
 ---
 
