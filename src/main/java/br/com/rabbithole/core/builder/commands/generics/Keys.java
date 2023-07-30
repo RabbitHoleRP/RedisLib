@@ -10,59 +10,61 @@ import java.util.Set;
 import redis.clients.jedis.Jedis;
 
 /**
- * @author Felipe Ros @Usage Retorna todas as chaves que correspondem ao padrão.
- * @since 2.0
- * @version 1.0
+ * Retorna todas as chaves que correspondem ao padrão.
+ *
+ * @author Felipe Ros
+ * @since 2.3.0
+ * @version 1.0.1
  */
 public class Keys implements Command, Read, Execute<Set<String>> {
-  private final String key;
+    private final String key;
 
-  @Override
-  public String commandName() {
-    return "keys";
-  }
-
-  @Override
-  public String getKey() {
-    return this.key;
-  }
-
-  @Override
-  public Optional<Set<String>> execute() {
-    try (Jedis jedis = RedisLib.getJedis().getResource()) {
-      Set<String> keys = jedis.keys(getKey());
-      if (RedisLib.inDebug())
-        RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
-      return Optional.of(keys);
-    } catch (Exception exception) {
-      RedisLib.getLogger().error("Query: " + commandName(), exception);
-      return Optional.empty();
-    }
-  }
-
-  private Keys(Builder builder) {
-    this.key = builder.key;
-  }
-
-  private Query<Keys> query() {
-    return new Query<>(this);
-  }
-
-  public static class Builder implements Execute<Set<String>> {
-    private String key;
-
-    public Builder setKey(String key) {
-      this.key = key;
-      return this;
+    @Override
+    public String commandName() {
+        return "keys";
     }
 
-    public Query<Keys> build() {
-      return new Keys(this).query();
+    @Override
+    public String getKey() {
+        return this.key;
     }
 
     @Override
     public Optional<Set<String>> execute() {
-      return build().getCommand().execute();
+        try (Jedis jedis = RedisLib.getJedis().getResource()) {
+            Set<String> keys = jedis.keys(getKey());
+            if (RedisLib.inDebug())
+                RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
+            return Optional.of(keys);
+        } catch (Exception exception) {
+            RedisLib.getLogger().error("Query: " + commandName(), exception);
+            return Optional.empty();
+        }
     }
-  }
+
+    private Keys(Builder builder) {
+        this.key = builder.key;
+    }
+
+    private Query<Keys> query() {
+        return new Query<>(this);
+    }
+
+    public static class Builder implements Execute<Set<String>> {
+        private String key;
+
+        public Builder setKey(String key) {
+            this.key = key;
+            return this;
+        }
+
+        public Query<Keys> build() {
+            return new Keys(this).query();
+        }
+
+        @Override
+        public Optional<Set<String>> execute() {
+            return build().getCommand().execute();
+        }
+    }
 }

@@ -14,24 +14,24 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @ExtendWith(MockitoExtension.class)
 class RedisConfigurationTest {
 
-  PodamFactory factory = new PodamFactoryImpl();
+    PodamFactory factory = new PodamFactoryImpl();
 
-  @Test
-  void buildPoolConfigShouldReturnSuccess() {
-    RedisConfig mockedRedisConfig = factory.manufacturePojo(RedisConfig.class);
+    @Test
+    void buildPoolConfigShouldReturnSuccess() {
+        RedisConfig mockedRedisConfig = factory.manufacturePojo(RedisConfig.class);
 
-    RedisConfiguration actualResponse = new RedisConfiguration(mockedRedisConfig);
+        RedisConfiguration actualResponse = new RedisConfiguration(mockedRedisConfig);
 
-    assertNotNull(actualResponse);
-    assertEquals(mockedRedisConfig.getConnections(), actualResponse.getJedis().getMaxTotal());
-    assertEquals(128, actualResponse.getJedis().getMaxIdle());
-    assertEquals(16, actualResponse.getJedis().getMinIdle());
-    assertTrue(actualResponse.getJedis().getTestOnBorrow());
-    assertTrue(actualResponse.getJedis().getTestOnReturn());
-    assertTrue(actualResponse.getJedis().getTestWhileIdle());
-    assertEquals(Duration.ofSeconds(60), actualResponse.getJedis().getMinEvictableIdleDuration());
-    assertEquals(Duration.ofSeconds(30), actualResponse.getJedis().getTimeBetweenEvictionRuns());
-    assertEquals(3, actualResponse.getJedis().getNumTestsPerEvictionRun());
-    assertTrue(actualResponse.getJedis().getBlockWhenExhausted());
-  }
+        assertNotNull(actualResponse);
+        assertEquals(mockedRedisConfig.getConnections(), actualResponse.getJedis().getMaxTotal());
+        assertEquals(128, actualResponse.getJedis().getMaxIdle());
+        assertEquals(16, actualResponse.getJedis().getMinIdle());
+        assertTrue(actualResponse.getJedis().getTestOnBorrow());
+        assertTrue(actualResponse.getJedis().getTestOnReturn());
+        assertTrue(actualResponse.getJedis().getTestWhileIdle());
+        assertEquals(Duration.ofSeconds(60), actualResponse.getJedis().getMinEvictableIdleDuration());
+        assertEquals(Duration.ofSeconds(30), actualResponse.getJedis().getTimeBetweenEvictionRuns());
+        assertEquals(3, actualResponse.getJedis().getNumTestsPerEvictionRun());
+        assertTrue(actualResponse.getJedis().getBlockWhenExhausted());
+    }
 }

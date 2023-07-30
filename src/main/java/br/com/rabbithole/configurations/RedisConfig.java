@@ -15,7 +15,7 @@ public class RedisConfig {
   private int connections;
 
   /**
-   * @Usage Build Redis connection config.
+   * Build Redis connection config.
    *
    * @param prefix String - Logs Prefixes.
    * @param debug Boolean - Is debugging.
@@ -25,14 +25,7 @@ public class RedisConfig {
    * @param password String - Password for Redis connection.
    * @param connections int - Number of available connections in Redis.
    */
-  public RedisConfig(
-      String prefix,
-      boolean debug,
-      String host,
-      int port,
-      String user,
-      String password,
-      int connections) {
+  public RedisConfig(String prefix, boolean debug, String host, int port, String user, String password, int connections) {
     this.prefix = prefix;
     this.debug = debug;
     this.host = host;
@@ -43,7 +36,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to get the Prefix.
+   * Used to get the Prefix.
    *
    * @return String - Returns the Prefix.
    */
@@ -52,7 +45,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to set the Prefix.
+   * Used to set the Prefix.
    *
    * @param prefix String - Logs Prefix.
    */
@@ -61,7 +54,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to get the debugging state.
+   * Used to get the debugging state.
    *
    * @return Boolean - Returns debugging state
    */
@@ -70,7 +63,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to set the debugging state.
+   * Used to set the debugging state.
    *
    * @param debug Boolean - Debugging state.
    */
@@ -79,7 +72,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to get the connection address.
+   * Used to get the connection address.
    *
    * @return String - Returns the connection address.
    */
@@ -88,16 +81,16 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to set the connection address.
+   * Used to set the connection address.
    *
-   * @param host String - Connection address.
+   * host String - Connection address.
    */
   public void setHost(String host) {
     this.host = host;
   }
 
   /**
-   * @Usage Used to get the connection port.
+   * Used to get the connection port.
    *
    * @return int - Returns the connection port.
    */
@@ -106,7 +99,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to set the connection port.
+   * Used to set the connection port.
    *
    * @param port int - Connection port.
    */
@@ -115,7 +108,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to get the connection User.
+   * Used to get the connection User.
    *
    * @return String - Returns the connection User.
    */
@@ -124,7 +117,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to set the connection User.
+   * Used to set the connection User.
    *
    * @param user String - connection User.
    */
@@ -133,7 +126,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to get the connection password.
+   * Used to get the connection password.
    *
    * @return String - Connection password.
    */
@@ -142,7 +135,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to set the connection password.
+   * Used to set the connection password.
    *
    * @param password String - Connection password.
    */
@@ -151,7 +144,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to get the number of available connections.
+   * Used to get the number of available connections.
    *
    * @return int - Number of available connections.
    */
@@ -160,7 +153,7 @@ public class RedisConfig {
   }
 
   /**
-   * @Usage Used to set the number of available connections.
+   * Used to set the number of available connections.
    *
    * @param connections int - Number of available connections.
    */

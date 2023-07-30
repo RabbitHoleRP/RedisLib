@@ -19,39 +19,39 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @ExtendWith(MockitoExtension.class)
 class RedisLibTest {
 
-  PodamFactory factory = new PodamFactoryImpl();
+    PodamFactory factory = new PodamFactoryImpl();
 
-  @Test
-  void initShouldReturnSuccess() {
-    RedisConfig mockedConfig = factory.manufacturePojo(RedisConfig.class);
-    mockedConfig.setDebug(true);
+    @Test
+    void initShouldReturnSuccess() {
+        RedisConfig mockedConfig = factory.manufacturePojo(RedisConfig.class);
+        mockedConfig.setDebug(true);
 
-    try (MockedConstruction<JedisPool> mockJedisPool = mockConstruction(JedisPool.class)) {
-      RedisLib.init(mockedConfig);
+        try (MockedConstruction<JedisPool> mockJedisPool = mockConstruction(JedisPool.class)) {
+            RedisLib.init(mockedConfig);
 
-      List<JedisPool> constructedJedisPool = mockJedisPool.constructed();
-      assertEquals(1, constructedJedisPool.size());
+            List<JedisPool> constructedJedisPool = mockJedisPool.constructed();
+            assertEquals(1, constructedJedisPool.size());
+        }
+
+        assertNotNull(RedisLib.getLogger());
+        assertNotNull(RedisLib.getJedis());
+        assertTrue(RedisLib.inDebug());
     }
 
-    assertNotNull(RedisLib.getLogger());
-    assertNotNull(RedisLib.getJedis());
-    assertTrue(RedisLib.inDebug());
-  }
+    @Test
+    void initShouldReturnSuccessWhenDebugIsFalse() {
+        RedisConfig mockedConfig = factory.manufacturePojo(RedisConfig.class);
+        mockedConfig.setDebug(false);
 
-  @Test
-  void initShouldReturnSuccessWhenDebugIsFalse() {
-    RedisConfig mockedConfig = factory.manufacturePojo(RedisConfig.class);
-    mockedConfig.setDebug(false);
+        try (MockedConstruction<JedisPool> mockJedisPool = mockConstruction(JedisPool.class)) {
+            RedisLib.init(mockedConfig);
 
-    try (MockedConstruction<JedisPool> mockJedisPool = mockConstruction(JedisPool.class)) {
-      RedisLib.init(mockedConfig);
+            List<JedisPool> constructedJedisPool = mockJedisPool.constructed();
+            assertEquals(1, constructedJedisPool.size());
+        }
 
-      List<JedisPool> constructedJedisPool = mockJedisPool.constructed();
-      assertEquals(1, constructedJedisPool.size());
+        assertNotNull(RedisLib.getLogger());
+        assertNotNull(RedisLib.getJedis());
+        assertFalse(RedisLib.inDebug());
     }
-
-    assertNotNull(RedisLib.getLogger());
-    assertNotNull(RedisLib.getJedis());
-    assertFalse(RedisLib.inDebug());
-  }
 }
