@@ -9,58 +9,60 @@ import java.util.Optional;
 import redis.clients.jedis.Jedis;
 
 /**
- * @author Felipe Ros @Usage Remove o tempo limite de existência de uma Chave.
+ * Remove o tempo limite de existência de uma Chave.
+ *
+ * @author Felipe Ros
  * @since 2.0
- * @version 1.0
+ * @version 1.0.1
  */
 public class Persist implements Command, Read, Execute<Boolean> {
-  private final String key;
+    private final String key;
 
-  @Override
-  public String commandName() {
-    return "persist";
-  }
-
-  @Override
-  public String getKey() {
-    return this.key;
-  }
-
-  @Override
-  public Optional<Boolean> execute() {
-    try (Jedis jedis = RedisLib.getJedis().getResource()) {
-      if (RedisLib.inDebug())
-        RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
-      return (jedis.persist(getKey()) == 0 ? Optional.of(false) : Optional.of(true));
-    } catch (Exception exception) {
-      RedisLib.getLogger().error("Query: " + commandName(), exception);
-      return Optional.empty();
-    }
-  }
-
-  private Persist(Builder builder) {
-    this.key = builder.key;
-  }
-
-  private Query<Persist> query() {
-    return new Query<>(this);
-  }
-
-  public static class Builder implements Execute<Boolean> {
-    private String key;
-
-    public Builder setKey(String key) {
-      this.key = key;
-      return this;
+    @Override
+    public String commandName() {
+        return "persist";
     }
 
-    public Query<Persist> build() {
-      return new Persist(this).query();
+    @Override
+    public String getKey() {
+        return this.key;
     }
 
     @Override
     public Optional<Boolean> execute() {
-      return build().getCommand().execute();
+        try (Jedis jedis = RedisLib.getJedis().getResource()) {
+            if (RedisLib.inDebug())
+                RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
+            return (jedis.persist(getKey()) == 0 ? Optional.of(false) : Optional.of(true));
+        } catch (Exception exception) {
+            RedisLib.getLogger().error("Query: " + commandName(), exception);
+            return Optional.empty();
+        }
     }
-  }
+
+    private Persist(Builder builder) {
+        this.key = builder.key;
+    }
+
+    private Query<Persist> query() {
+        return new Query<>(this);
+    }
+
+    public static class Builder implements Execute<Boolean> {
+        private String key;
+
+        public Builder setKey(String key) {
+            this.key = key;
+            return this;
+        }
+
+        public Query<Persist> build() {
+            return new Persist(this).query();
+        }
+
+        @Override
+        public Optional<Boolean> execute() {
+            return build().getCommand().execute();
+        }
+    }
 }
