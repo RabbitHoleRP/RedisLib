@@ -40,6 +40,7 @@ public class GetAllByPrefix implements Command, Read, Execute<Map<String, String
                 value.ifPresent(resultValue -> result.put(key, resultValue));
             }
         });
+
         if (!result.isEmpty()) return Optional.of(result);
         return Optional.empty();
     }
@@ -56,7 +57,7 @@ public class GetAllByPrefix implements Command, Read, Execute<Map<String, String
         private String key;
 
         public Builder setPrefix(String prefix) {
-            this.key = key;
+            this.key = prefix;
             return this;
         }
 
