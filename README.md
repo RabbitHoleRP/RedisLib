@@ -72,7 +72,7 @@ public class Main {
                 .execute();
 
         //A simple Set Query
-        Query<Sets<S>> setQuery = new Sets.Builder()
+        Query<Sets> setQuery = new Sets.Builder()
                 .setKey("Foo")
                 .setValue("Bar")
                 .build();
@@ -187,6 +187,6 @@ implementation("br.com.rabbithole:RedisLib:2.4.0-SNAPSHOT")
 
 <div align="center">
 
-    2.4.0
+    2.5.0
     
 </div> 
