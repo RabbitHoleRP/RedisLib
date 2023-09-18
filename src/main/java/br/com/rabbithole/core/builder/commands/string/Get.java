@@ -34,7 +34,7 @@ public class Get implements Command, Read, Execute<String> {
             String result = jedis.get(getKey());
             if (RedisLib.inDebug())
                 RedisLib.getLogger().info("Query: " + commandName() + " has executed!");
-            return (!result.equals("nil") ? Optional.of(result) : Optional.empty());
+            return (result != null ? Optional.of(result) : Optional.empty());
         } catch (Exception exception) {
             RedisLib.getLogger().error("Query: " + commandName(), exception);
             return Optional.empty();
